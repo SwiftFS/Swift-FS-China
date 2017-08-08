@@ -1,4 +1,4 @@
-#SwiftFS China
+# SwiftFS China
 
 
 
@@ -20,7 +20,7 @@
 * Mysql 5.7+
 
 ### 安装
-####第一部分 
+#### 第一部分 
 ##### 在mac
 1.需要安装Xcode
 2.swift >= 3.0
