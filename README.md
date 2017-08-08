@@ -25,10 +25,10 @@
 1.需要安装Xcode
 2.swift >= 3.0
 ###### 在linux
-1.需要安装语言环境
-可参考 [perfect](https://www.perfect.org/docs/) 或 [vapor](https://docs.vapor.codes/2.0/getting-started/install-on-ubuntu/) 官网
-2.本项目在Linux直接使用 vapor (Install Toolbox)[https://docs.vapor.codes/2.0/getting-started/toolbox/]
-3.执行swift build 或 vpaor build 时会提示 未安装的环境，按提示安装即可
+1. 需要安装语言环境
+2. 可参考 [perfect](https://www.perfect.org/docs/) 或 [vapor](https://docs.vapor.codes/2.0/getting-started/install-on-ubuntu/) 官网
+3. 本项目在Linux直接使用 vapor (Install Toolbox)[https://docs.vapor.codes/2.0/getting-started/toolbox/]
+4. 执行swift build 或 vpaor build 时会提示 未安装的环境，按提示安装即可
 
 #### 第二部分
 * 将仓库中提供的SQL文件导入到MySQL的
