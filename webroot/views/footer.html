@@ -1,0 +1,34 @@
+<footer class="footer" id="footer">
+    <div class="container">
+        <div class="media">
+     
+            <div class="media-body">
+                <div class="links"> <a href="/about">关于</a> / <a href="" target="_blank" rel="nofollow" title="本站在 GitHub 上面的开源内容">GitHub</a>
+ 
+                </div>
+                <div class="copyright">中国 SwiftFS 社区(inspired by ruby-china.org)，如有swiftWeb爱好者希望加入开发，共同致力于构建完善的 swiftFs 中文社区</div>
+            </div>
+            <div class="media-right" style="width:200px; text-align:right;">
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% if locals.login == true%}
+
+
+<div id="response-time-area"></div>
+<script type="text/javascript">
+    {#APP.Common.findUnreadMsg();#}
+
+    // $(document).ajaxComplete(function( event, xhr, settings ) {
+    //     var show_id = 'response-time-show-' + $.now();
+        
+    //     $("#response-time-area").append('<p id="'+ show_id +'">'+ xhr.getResponseHeader('X-Response-Time')+"</p>");
+    //     $("#" + show_id).fadeOut(3000,function(){
+    //         $(this).remove();
+    //     });
+    // });
+</script>
+{%endif%}

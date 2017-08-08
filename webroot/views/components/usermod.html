@@ -1,0 +1,91 @@
+<h2>Users</h2>
+	<h3 class="mt">{{action}} User</h3>
+
+	{{msg}}
+
+	<form action="?" method="POST" id="userform">
+		<input type="hidden" name="_csrf" value="{{csrfToken}}">
+		<div class="row">
+
+			<div class="col six first">
+				<div class="row">
+					<label class="mt hmb">First Name:</label>
+					<div class="col thirteen first">
+						<input type="text" name="firstname" class="hpl" value="{{firstname}}" required>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<label class="mt hmb">Last Name:</label>
+					<div class="col thirteen first">
+						<input type="text" name="lastname" class="hpl" value="{{lastname}}" required>
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="mt hmb">Email:</label>
+					<div class="col thirteen first">
+						<input type="text" name="email" class="hpl" value="{{email}}" required>
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="mt hmb">User Type:</label>
+					<div class="col thirteen first">
+						<select name="usertype" class="hpl">
+							<option value="provisional">Provisional</option>
+							<option value="standard"{{usertypestandard}}>Standard</option>
+							<option value="admin"{{usertypeadmin}}>Admin</option>
+							<option value="inactive"{{usertypeinactive}}>Inactive</option>
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="col six last">
+
+
+				<div class="row">
+					<label class="mt hmb">Username:</label>
+					<div class="col thirteen first">
+						<input type="text" name="username" class="hpl" value="{{username}}" required>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<label class="mt hmb">Password: (Only set if entered)</label>
+					<div class="col thirteen first">
+						<input type="password" name="pw" class="hpl" value="" id="pw1">
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="mt hmb">Repeat Password:</label>
+					<div class="col thirteen first">
+						<input type="password" name="pw2" class="hpl" value="" id="pw2">
+					</div>
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="dmt">Save</button>
+		<a href="/users" class="button">Cancel</a>
+	</form>
+
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+
+<script>
+$("#userform").validate({
+	rules: {
+		pw2: {
+			equalTo: "#pw1"
+		}
+	}
+});
+</script>
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SwiftFS China 社区 &raquo; 错误</title>
+
+{% include "meta.html" %}
+</head>
+<body data-controller-name="sessions" style="padding-top: 65px">
+
+{% include "header.html" %}
+
+<div id="main" class="main-container container">
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">错误</div>
+                <div class="panel-body">
+                   <div class="panel-body markdown">
+                        {{errMsg}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    });
+</script>
+
+{% include "footer.html" %}
+</body>
+</html>

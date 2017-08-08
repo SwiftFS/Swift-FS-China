@@ -1,0 +1,31 @@
+
+{% include "header.html" %}
+<div class="row" style="margin-top: 100px;">
+	<div class="col thirteen last push_three">
+
+	<h2 class="dmb">Complete Registration</h2><p>Please select a password:</p>
+
+	{{{msg_body}}}
+
+	<form action="/registrationCompletion" method="POST">
+
+		<fieldset>
+			<label class="above" for="p1">Password</label>
+			<input type="password" id="p1" name="p1" />
+		</fieldset>
+
+		<fieldset>
+			<label class="above" for="p2">Repeat Password</label>
+			<input type="password" id="p2" name="p2" />
+		</fieldset>
+
+		<input type="hidden" name="passvalidation" value="{{passvalidation}}">
+
+		<input type="hidden" name="_csrf" value="{{csrfToken}}">
+		<button type="submit" class="dmt">Save Password</button>
+
+	</form>
+
+	</div>
+</div>
+{% include "footer.html" %}

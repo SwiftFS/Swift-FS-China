@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SwiftFullStack 社区</title>
+  {% include "meta.html" %}
+</head>
+<body data-controller-name="topics">
+{% include "header.html" %}
+<div id="main" class="main-container container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="topics panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="filter pull-right" id="topic-type-tab"> 
+                        <span class="l">查看:</span>
+                        <a id="default-topics-btn" href="javascript:void(0);" class="active">默认</a> / 
+                        <a id="recent-reply-topics-btn" href="javascript:void(0);">最近回复</a> / 
+                        <a id="good-topics-btn" href="javascript:void(0);" class="popular"><i class="fa fa-diamond"></i> 优质帖子</a> / 
+                        <a id="noreply-topics-btn" href="javascript:void(0);">无人问津</a>
+                    </div>
+                </div>
+                <div class="panel-body" id="topics-body"></div><!-- topics -->  
+                <div class="panel-footer clearfix" id="pagebar" style="display:none;"></div><!-- page bar -->  
+            </div>
+        </div>
+        
+        <div class="sidebar col-md-3">
+            {% if diff_days < 3 %}
+                
+                <div class="panel panel-default">
+                <div class="panel-heading">关于本站</div>
+                <div class="panel-body">
+                    <p>本站由SwiftWeb(Perfect)服务搭建而成,正在开发中,期待共同爱好者的加入,让SwiftWeb也拥有一席之位</p>
+                    <p>qq群514517311</p>
+                    <p>
+                    <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px">
+                        <li>注册时间超过3天</li>
+                        {% if locals.create_time  and locals %}
+                        <li>您注册于{{locals.create_time}}</li>
+                        {% endif %}
+                        </ul>
+                        </p>
+                        {# <a href="https://github.com/kuhippo">关于作者</a
+                        <p><a href="https://github.com/kuhippo">本站源码</a> </a></p>#}
+                        </div>
+                        </div>
+            {% endif %}
+     
+            <div class="panel panel-default">
+                <div class="panel-heading">友情社区</div>
+                <ul class="list-group" style="text-align:center">
+                    <li class="list-group-item">
+                        <a href="http://golangtc.com/" rel="nofollow" title="Golang 中国" target="_blank">
+                            <img src="/assets/community/golang.png" style="width:120px; margin:6px 0;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">推荐 swift开发Web服务资源</div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="https://www.perfect.org/" target="_blank" rel="nofollow">Perfect官方网站</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://vapor.codes/" target="_blank" rel="nofollow">Vapor官方网站</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://developer.ibm.com/swift/" target="_blank">Kitura官方网站</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">统计信息</div>
+                <ul class="list-group">
+                    <li class="list-group-item">社区会员: {{user_count}} 人</li>
+                    <li class="list-group-item">文章数: {{topic_count}} 个</li>
+                    <li class="list-group-item">评论数: {{comment_count}} 条</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+
+
+<script id="topic-item-tpl" type="text/template">
+    {@each topics as t}
+        <div class="topic media">
+            <div class="avatar media-left">
+                <a href="/user/${t.user_name}/index">
+                    <img class="media-object avatar-48" src="/avatar/${t.avatar}">
+                </a>
+            </div>
+            <div class="infos media-body">
+                <div class="title media-heading"> 
+                    <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                    <!-- <i class="fa fa-thumb-tack" title="置顶"></i> -->
+                    {@if t.is_good==1 }
+                        <i title="精华帖" class="fa fa-diamond"></i>
+                    {@/if}
+                </div>
+                <div class="info"> 
+                    {@if t.category_id!=0}
+                        <a class="node" href="/category/${t.category_id}">${t.category_name}</a> •
+                    {@/if}
+                    &nbsp;<a href="/user/${t.user_name}/index">${t.user_name}</a> 发布于 ${t.create_time}
+                    • ${t.view_num} 次浏览
+                    {@if t.last_reply_id!=0}
+                        <span class="hidden-mobile">
+                          • 最后由 <a href="/user/${t.last_reply_name}/index">${t.last_reply_name}</a> 于 ${t.last_reply_time} 回复
+                        </span>
+                    {@/if}
+                </div>
+            </div>
+            <div class="count media-right">
+                <a class="state-false" href="/topic/${t.id}/view#replies">${t.reply_num}</a>
+            </div>
+        </div>
+    {@/each}
+</script>
+
+<script src="/assets/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var current_category = "{{current_category}}";
+        var nav = "nav-index";
+        if(current_category == "0"){
+            nav = "nav-index";
+        }else if(current_category == "1"){
+            nav = "nav-share";
+        }else if(current_category == "2"){
+            nav = "nav-ask";
+        }
+        APP.Common.resetNav(nav);
+        APP.Index.init(current_category);
+    });
+</script>
+</body>
+</html>
+

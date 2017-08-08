@@ -1,0 +1,64 @@
+{{>header}}
+	<div class="row">
+		<div class="col four first leftcol f l t">{{>leftUtility}}</div>
+		<div class="col push_four twelve last rightcol">
+
+			{{^authenticated}}
+				{{>components/login}}
+			{{/authenticated}}
+
+			{{#authenticated}}
+
+			<h2>System Configuration</h2>
+
+			{{msg}}
+
+			<form action="?" method="POST" id="configform">
+				<input type="hidden" name="_csrf" value="{{csrfToken}}">
+				<div class="row">
+					<label class="mt hmb">System Name:</label>
+					<div class="col thirteen first">
+						<input type="text" name="configTitle" class="hpl" value="{{configTitle}}" required>
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="mt hmb">Logo:</label>
+					<div class="col thirteen first">
+						<input type="text" name="configLogo" class="hpl" value="{{configLogo}}" required>
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="mt hmb">Logo SrcSet (For high res displays):</label>
+					<div class="col thirteen first">
+						<input type="text" name="configLogoSrcSet" class="hpl" value="{{configLogoSrcSet}}" required>
+					</div>
+				</div>
+
+				<div class="row">
+					<button type="submit" class="dmt">Save</button>
+					<a href="/config" class="button">Cancel</a>
+				</div>
+			</form>
+
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+
+<script>
+$("#userform").validate({
+rules: {
+pw2: {
+equalTo: "#pw1"
+}
+}
+});
+</script>
+
+
+
+			{{/authenticated}}
+
+		</div>
+	</div>
+{{>footer}}
