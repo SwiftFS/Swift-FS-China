@@ -1,9 +1,46 @@
-####一个由Swift Web服务器开发的BBS系统
-#####历程（day）：
-1：选择vapor和perfect，查看官网文档
-2：选择vapor和swift的模板引擎和详细考虑，查看官网文档,其中安装过多个vapor项目，最终考虑用perfect
-3. 搭建项目，研究Auth怎么在perfect中怎么使用
-4. 折腾配置perfect中的导入json文件，选择mysql连接库最终选择sql-swift
-5. 7.26号，放弃json文件原因每次生成时都会重新导入。太麻烦了，用struct直接代替，完成注册功能 基本项目搭建完成
+#SwiftFS China
 
+
+
+![截图](https://segmentfault.com/img/bVShiH?w=1842&h=1256)
+
+-------
+
+### 项目概述
+
+* 一个运行在SwiftWeb上的基于Perfect的BBS系统。
+* 主要页面直接采用了ruby on china的样式
+* 采用的MySQL，文件本地存储
+* 本项目只是骨架,未完全完成。
+
+
+### 运行环境
+* swift 3.1
+* ubuntu 16.04
+* Mysql 5.7+
+
+### 安装
+####第一部分 
+##### 在mac
+1.需要安装Xcode
+2.swift >= 3.0
+###### 在linux
+1.需要安装语言环境
+可参考 [perfect](https://www.perfect.org/docs/) 或 [vapor](https://docs.vapor.codes/2.0/getting-started/install-on-ubuntu/) 官网
+2.本项目在Linux直接使用 vapor (Install Toolbox)[https://docs.vapor.codes/2.0/getting-started/toolbox/]
+3.执行swift build 或 vpaor build 时会提示 未安装的环境，按提示安装即可
+
+#### 第二部分
+* 将仓库中提供的SQL文件导入到MySQL的
+* 修改文件目录下PerfectChina/ApplicationConfiguration 配置信息，有数据库连接，白名单等
+* webroot/avatar 为图片本地地址
+* 日志输出在更目录 ./webLog.log"
+
+
+
+#### 讨论交流
+qq群：514517311
+
+#### License
+[MIT](https://github.com/sumory/openresty-china/blob/master/LICENSE)
 
