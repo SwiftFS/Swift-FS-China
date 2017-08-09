@@ -37,10 +37,16 @@
 * 日志输出在更目录 ./webLog.log"
 
 
+### 计划
+1.完成github登录
+2.邮箱验证
+
 
 #### 讨论交流
 qq群：514517311
 
 #### License
 [MIT](https://github.com/sumory/openresty-china/blob/master/LICENSE)
+
+
 
