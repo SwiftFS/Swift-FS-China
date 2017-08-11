@@ -38,16 +38,13 @@
 
 
 ### 计划
-~~1.完成github登录~~
-2.邮箱验证
-3.集成redis
+1. ~~完成github登录~~
+2. 邮箱验证
+3. 集成redis
 ### 最近完成
-1.图片上传
-2.全文索引
+1. 图片上传
+2. 全文索引
 
-
-#### 讨论交流
-qq群：514517311
 
 #### License
 [MIT](https://github.com/sumory/openresty-china/blob/master/LICENSE)
