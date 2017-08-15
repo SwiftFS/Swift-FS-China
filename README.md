@@ -31,6 +31,7 @@
 4. 执行swift build 或 vpaor build 时会提示 未安装的环境，按提示安装即可
 
 #### 第二部分
+* 安装redis
 * 将仓库中提供的SQL文件导入
 * 修改文件目录下PerfectChina/ApplicationConfiguration 配置信息，有数据库连接，白名单等
 * webroot/avatar 为图片本地地址
