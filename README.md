@@ -42,7 +42,7 @@
 2.  ~~图片上传~~
 3.  ~~完成github登录~~
 4.  ~~邮箱验证~~
-5.  集成redis
+5.  ~~集成redis和redis-session~~
 6.  修改UI/优化
 
 
