@@ -44,7 +44,9 @@
 3.  ~~完成github登录~~
 4.  ~~邮箱验证~~
 5.  ~~集成redis和redis-session~~
-6.  修改UI/优化
+6.  集成nginx 
+7.  修改UI/优化
+
 
 
 
