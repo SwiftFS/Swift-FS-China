@@ -24,47 +24,7 @@ import PerfectLib
 import Stencil
 
 
-//public struct MustacheHandler: MustachePageHandler {
-//	var context: [String: Any]
-//	public func extendValuesForResponse(context contxt: MustacheWebEvaluationContext, collector: MustacheEvaluationOutputCollector) {
-//		contxt.extendValues(with: context)
-//		do {
-//			contxt.webResponse.setHeader(.contentType, value: "text/html")
-//			try contxt.requestCompleted(withCollector: collector)
-//		} catch {
-//			let response = contxt.webResponse
-//			response.status = .internalServerError
-//			response.appendBody(string: "\(error)")
-//			response.completed()
-//		}
-//	}
-//
-//	public init(context: [String: Any] = [String: Any]()) {
-//		self.context = context
-//	}
-//}
-//
-//
-//
-//
-//extension HTTPResponse {
-//    
-//    func jsonforarr(arr:[Any],json:JSONConvertible,skipContentType: Bool = false)  throws -> HTTPResponse {
-//        
-//        let applicationJson = "application/json"
-//        let string = try json.jsonEncodedString()
-//        if !skipContentType {
-//            setHeader(.contentType, value: applicationJson)
-//        }
-//        return setBody(string: string)
-//    }
-//    
-//    public func render2(template: String, context: [String: Any] = [String: Any]()) {
-// 
-//        mustacheRequest(request: self.request, response: self, handler: MustacheHandler(context: context), templatePath: request.documentRoot + "/\(template).mustache")
-//        
-//	}
-//}
+
 
 extension HTTPResponse {
     public func render(template: String, context: [String: Any] = [String: Any]()) {
@@ -82,7 +42,11 @@ extension HTTPResponse {
         dic["login"] = false
         dic["username"] = local?["username"] ?? ""
         dic["userid"] = local?["userid"] ?? 0
+        dic["userpic"] = local?["userpic"] ?? ""
         dic["create_time"] = local?["create_time"] ?? ""
+        dic["email"] = local?["email"] ?? ""
+        dic["is_verify"] = local?["is_verify"] ?? ""
+        
         let isLogin = local?["login"] as? Bool
         if isLogin != nil && isLogin! == true{
             dic["login"] = true

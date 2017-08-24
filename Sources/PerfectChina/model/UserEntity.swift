@@ -12,7 +12,9 @@ import MySQL
 
 extension UserEntity:HandyJSON {
     init() {
-        self.init(id: AutoincrementID.noID, username: "", password: "", avatar: "", create_time: nil, city: "", website: "", company: "", sign: "", github: "", email: "", email_public: 0, is_admin: 0)
+        
+        
+        self.init(id: AutoincrementID.noID, username: "", password: "", avatar: "", create_time: nil, city: "", website: "", company: "", sign: "", github: "", github_name: "", is_verify: 0, github_id: nil, email: "", email_public: 0, is_admin: 0)
     }
 }
 
@@ -34,6 +36,9 @@ struct UserEntity: QueryRowResultType, QueryParameterDictionaryType {
     let company: String
     let sign: String
     let github: String
+    let github_name: String
+    let is_verify:Int
+    let github_id: Int?
     let email: String
     let email_public: Int
     let is_admin: Int
@@ -56,9 +61,12 @@ struct UserEntity: QueryRowResultType, QueryParameterDictionaryType {
          company: r <| "company",
          sign: r <| "sign",
          github: r <| "github",
+         github_name: r <| "github_name",
+         is_verify: r <| 11,
+         github_id: r <|? 12,
          email: r <| "email",
-         email_public: r <| 11,
-         is_admin: r <| 12
+         email_public: r <| 14,
+         is_admin: r <| 15
         )
     }
     
@@ -69,7 +77,10 @@ struct UserEntity: QueryRowResultType, QueryParameterDictionaryType {
         return QueryDictionary([
             "username": username,
             "password": password,
-            "avatar":avatar
+            "avatar":avatar,
+            "email":email,
+            "github_id":github_id,
+            "github_name":github_name
         ])
     }
 }

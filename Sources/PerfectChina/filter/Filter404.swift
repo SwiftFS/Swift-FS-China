@@ -8,11 +8,11 @@
 import PerfectHTTP
 
 public  func Filter404(data: [String:Any]) throws -> HTTPResponseFilter {
-    return Filter4042()
+    return _Filter404()
 }
 
 
-struct Filter4042: HTTPResponseFilter {
+struct _Filter404: HTTPResponseFilter {
     func filterBody(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
         callback(.continue)
     }
@@ -25,7 +25,6 @@ struct Filter4042: HTTPResponseFilter {
             response.completed()
             callback(.done)
         } else {
-            
             callback(.continue)
         }
     }

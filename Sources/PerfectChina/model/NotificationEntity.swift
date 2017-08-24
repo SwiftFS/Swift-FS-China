@@ -12,7 +12,7 @@ import MySQL
 
 extension NotificationEntity:HandyJSON {
     init() {
-        self.init(id: 0, user_id: 0, type: "", from_id: 0, content: "", topic_id: 0, comment_id: 0, status: 0, create_time: Date(), from_username: "", avatar: "", username: "", topic_title: "", comment_id2: 0, comment_content: "")
+        self.init(id: 0, user_id: 0, type: 0, from_id: 0, content: "", topic_id: 0, comment_id: 0, status: 0, create_time: Date.init(), from_username: "", avatar: "", username: "", topic_title: "", comment_content: "")
     }
 }
 
@@ -21,7 +21,7 @@ struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType {
     
     let id: Int
     let user_id: Int
-    let type: String
+    let type: Int
     let from_id: Int
     let content:String
     let topic_id:Int
@@ -32,7 +32,6 @@ struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType {
     let avatar:String
     let username:String
     let topic_title:String
-    let comment_id2:Int
     let comment_content:String
     
     
@@ -40,7 +39,7 @@ struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType {
         return try NotificationEntity(
             id: r <| 0,
             user_id: r <| 1,
-            type: r <| "",
+            type: r <| 2,
             from_id: r <| 3,
             content: r <| "content",
             topic_id: r <| 5,
@@ -51,7 +50,6 @@ struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType {
             avatar: r <| "avatar",
             username: r <| "username",
             topic_title: r <| "topic_title",
-            comment_id2: r <| 13,
             comment_content: r <| "comment_content"
         )
     }

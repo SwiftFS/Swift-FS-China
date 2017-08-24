@@ -21,6 +21,10 @@ import PerfectLib
 import Foundation
 import MySQL
 import CMySQL
+import PerfectCURL
+import PerfectSMTP
+import PerfectRedis
+
 
 public var pool: ConnectionPool!
 
@@ -50,9 +54,9 @@ func config() {
         let pwd = dic.mysqlpwd
         let database = dic.mysqldbname
         let port = dic.mysqlport
-        
+    
         pwd_secret = dic.pwd_secret
-        
+    
         let option = Options.init(database: database, password: pwd, user: user, port: port, host: host)
         
         pool = ConnectionPool.init(options: option)
@@ -63,10 +67,12 @@ func config() {
             let _:[Check] = try pool.execute({ conn in
                 try conn.query("show tables");
             })
-            Log.info(message: "连接数据库成功")
+           Log.info(message: "连接数据库成功")
+            
         }catch{
             fatalError("\(error)") // fatal error launching one of the servers
         }
+
     }
     
     struct Check: QueryRowResultType, QueryParameterDictionaryType {

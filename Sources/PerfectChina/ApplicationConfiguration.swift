@@ -36,12 +36,18 @@ let whitelist = [
     "^/user/[0-9a-zA-z-_]+/fans$",
     "^/user/[0-9a-zA-z-_]+/hot_topics$",
     "^/user/[0-9a-zA-z-_]+/like_topics$",
+    "^/verification/",
     "^/login$",
+    "^/email-verification",
     "^/auth/sign_up$",
     "^/about$",
+    "^/to/github$",
     "^/register$",
-    "^/error/$"
+    "^/auth/response/github",
+    "^/error/$",
+    "^/search/$",
 ]
+
 
 #if os(Linux)
     struct ApplicationConfiguration {
@@ -52,9 +58,17 @@ let whitelist = [
         let mysqlport = 3306
         let mysqlpwd = "123456"
         let mysqluser =  "root"
-        let httpport =  8181
-        let pwd_secret = "ijxssxtgrf45terf" //-- 用于存储密码的盐, 16位数
+        let httpport =  80
+        let pwd_secret = "ijkmhytgrf45terf" //-- 用于存储密码的盐, 16位数
+        
+        //重定向
+        let endpointAfterAuth = "http://127.0.0.1/auth/response/github"
+        let redirectAfterAuth = "http://127.0.0.1/register"
+        
+        let appid = "xxxxxxxxxxxxxxxxxxxxxx"
+        let secret = "xxxxxxxxxxxxxxxxxxxxxx"
     }
+    
 #else
     struct ApplicationConfiguration {
         let baseURL =  "http://localhost:8181"
@@ -65,12 +79,28 @@ let whitelist = [
         let mysqlpwd = ""
         let mysqluser =  "root"
         let httpport =  8181
-        let pwd_secret = "ijxssxtgrf45terf" //-- 用于存储密码的盐 16位数
+        let pwd_secret = "ijkmhytgrf45terf" //-- 用于存储密码的盐 16位数
+        
+        //重定
+        let endpointAfterAuth = "http://127.0.0.1/auth/response/github"
+        let redirectAfterAuth = "http://127.0.0.1/register"
+        
+        let appid = "xxxxxxxxxxxxxxxxxxxxxx"
+        let secret = "xxxxxxxxxxxxxxxxxxxxxx"
     }
 #endif
 
 //图片地址
 let picurl = ""
+
+struct STMPConfig{
+    //stmp
+    public static let url = "smtp://smtp.ym.163.com"
+    
+    public static let username = "mubin@swiftfs.org"
+    
+    public static let password = "a452359549"
+}
 
 
 

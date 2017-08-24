@@ -1,0 +1,24 @@
+<div class="result user media">
+  <div class="media">
+    <div class="avatar media-left">
+      <div class="image"><a title="{{ user.username }}" href="/user/{user.username}/index">
+          <img style="width:50px" src="/avatar/{{user.avatar}}" alt="96"></a>
+      </div>
+    </div>
+    <div class="media-body user-info">
+      <div class="info">
+        <a href="/user/{{user.username}}/index">
+            {{user.username}}
+        </a>
+      </div>
+      <div class="info number">
+        第 {{user.id}} 位会员
+      </div>
+      <span title="注册日期">
+          注册日期: {{user.create_time}}
+      </span>
+    </div>
+  </div>
+
+</div>
+<hr>

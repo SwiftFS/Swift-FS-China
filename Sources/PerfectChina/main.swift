@@ -22,15 +22,14 @@ import PerfectHTTP
 import PerfectHTTPServer
 import PerfectRequestLogger
 import PerfectLogger
+
 import PerfectSession
+import PerfectRedis
 
 
-
-var HTTPport = 8181
 
 //配置 mysql 端口
 config()
-
 
 let server = HTTPServer()
 
@@ -38,26 +37,28 @@ let server = HTTPServer()
 let httplogger = RequestLogger()
 RequestLogFile.location = "./webLog.log"
 
+
+//session 设置
+RedisSessionConnector.host = "127.0.0.1"
+RedisSessionConnector.password = ""
+RedisSessionConnector.port = redisDefaultPort
+
+//SessionConfig.cookieDomain = "127.0.0.1"
 //// 会话名称
 // 这个名称也会成为浏览器cookie的名称
 SessionConfig.name = "PerfectSession"
-// 允许处于零活动连接的时间限制，单位是秒
-// 86400 秒表示一天。
-SessionConfig.idle = 1000
-// 可选项，设置 Cookie作用域
-//SessionConfig.cookieDomain = "localhost"
-// 可选项，锁定创建时用的 IP 地址，即在会话过程中不允许 IP 地址发生变化，否则视为欺诈。默认为 false
+SessionConfig.idle = 3600
 SessionConfig.IPAddressLock = true
-// 可选项，锁定创建时所用的用户代理，即服务器在会话过程中不允许用户代理发生变化，否则视为欺诈。默认为 false
 SessionConfig.userAgentLock = true
+SessionConfig.CSRF.checkState = true
 
-
+let configuration = ApplicationConfiguration()
 // Configure Server
 var confData: [String:[[String:Any]]] = [
 	"servers": [
 		[
-			"name":"呱呱呱",
-			"port":HTTPport,
+			"name":"SwiftFS",
+			"port":configuration.httpport,
 			"routes":[],
 			"filters":[]
 		]

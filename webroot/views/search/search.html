@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SwfitFS China社区  &raquo; 登录</title>
+  {% include "meta.html" %}
+   <style> .highlight{background-color: #FFFF88;} </style>  
+</head>
+<body data-controller-name="sessions">
+
+{% include "header.html" %}
+
+<div id="main" class="main-container container">
+    <div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    关于 {{q}} 的搜索结果, 共 {{total_count}} 条
+  </div>
+  <div class="panel-body search-results">
+    {% if total_count == 0 %}
+    <div class="no-result">没有搜索到任何有关 “{{q}}” 的内容</div>
+    {% endif %}
+    {% for user in useritems %}
+        {% include "search/search_user.html" %}
+    {% endfor %} 
+    {% for topic in topicitems %}
+      {% include "search/search_topic.html" %}
+    {% endfor %} 
+  </div>
+  <div class="panel-footer clearfix">
+    
+  </div>
+</div>
+</div>
+
+</div>
+
+{% include "footer.html" %}
+<script src="/assets/js/jquery.highlight.js"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        var query = '{{ q }}';
+        var results = query.match(/("[^"]+"|[^"\s]+)/g);
+        results.forEach(function(entry) {
+            $('.search-results').highlight(entry);
+        });
+    });
+</script>
+</body>
+</html>

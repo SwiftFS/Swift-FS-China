@@ -21,6 +21,8 @@ import PerfectHTTPServer
 import PerfectRequestLogger
 import PerfectSession
 
+
+
 func filters() -> [[String: Any]] {
     
 
@@ -33,7 +35,7 @@ func filters() -> [[String: Any]] {
     filters.append(["type":"request","priority":"high","name":SessionMemoryFilter.filterAPIRequest])
     filters.append(["type":"response","priority":"row","name":SessionMemoryFilter.filterAPIResponse])
     
-    filters.append(["type":"request","priority":"low","name":CheckLogin])
+    filters.append(["type":"request","priority":"high","name":CheckLogin])
     
 	return filters
 }

@@ -141,9 +141,8 @@ class Topic {
                     res.completed()
                 }
 
-                
             }catch{
-                
+                Log.error(message: "\(error)")
             }
         }
     }

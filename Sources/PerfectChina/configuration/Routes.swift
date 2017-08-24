@@ -24,6 +24,13 @@ import OAuth2
 
 func mainRoutes() -> [[String: Any]] {
     
+    let dic = ApplicationConfiguration()
+    
+    GitHubConfig.appid = dic.appid
+    GitHubConfig.secret = dic.secret
+    
+    GitHubConfig.endpointAfterAuth = dic.endpointAfterAuth
+    GitHubConfig.redirectAfterAuth = dic.redirectAfterAuth
     
 
 	var routes: [[String: Any]] = [[String: Any]]()
@@ -33,7 +40,11 @@ func mainRoutes() -> [[String: Any]] {
 	               "allowRequestFilter":false,
 	               "allowResponseFilters":true])
 	
+    //github
+    routes.append(["method":"get", "uri":"/to/github", "handler":OAuth.sendToProvider])
     
+    routes.append(["method":"get", "uri":"/auth/response/github", "handler":OAuth.authResponse])
+
     
 	// Handler for home page
 	routes.append(["method":"get", "uri":"/", "handler":Handlers.index])
@@ -59,8 +70,6 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"get", "uri":"/user/{username}/fans", "handler":User.fans])
     routes.append(["method":"post", "uri":"/user/edit", "handler":User.edit])
     routes.append(["method":"post", "uri":"/user/change_pwd", "handler":User.change_pwd])
-    
-    
     
     
     //notification
@@ -97,6 +106,22 @@ func mainRoutes() -> [[String: Any]] {
     //upload
     routes.append(["method":"post", "uri":"/upload/avatar", "handler":Upload.avatar])
     routes.append(["method":"post", "uri":"/upload/file", "handler":Upload.file])
+    
+    //notification
+    routes.append(["method":"post", "uri":"notification/delete_all", "handler":Notification.delete_all])
+    routes.append(["method":"post", "uri":"notification/mark", "handler":Notification.mark])
+    routes.append(["method":"post", "uri":"notification/{id}/delete", "handler":Notification.delete])
+    
+    //search
+    routes.append(["method":"get", "uri":"search/", "handler":Search.query])
+    
+    //eamail
+    routes.append(["method":"get", "uri":"verification/{secret}", "handler":EmailAuth.verification])
+    routes.append(["method":"get", "uri":"email-verification", "handler":EmailAuth.email_verification])
+    
+    routes.append(["method":"post", "uri":"send-verification-mail", "handler":EmailAuth.send_verification_mail])
+    
+    
     
 	return routes
 }

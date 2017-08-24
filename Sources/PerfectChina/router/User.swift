@@ -532,7 +532,7 @@ class User {
                 
             var is_self = false
             var relation = 0
-//
+                
             if current_userId != 0 {
                     is_self = current_userId == userId
                     relation = try User.get_relation(id1: current_userId, id2: userId)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SwfitFS China社区 社区 &raquo; 编辑文章</title>
+  <title>SwfitFS China社区  &raquo; 编辑文章</title>
 {% include "meta.html" %}
   <link rel="stylesheet" media="screen" href="/assets/css/jquery.fileupload.css"/>
     <link rel="stylesheet" media="screen" href="/assets/css/jquery.fileupload-ui.css"/>
@@ -96,7 +96,7 @@
             //console.dir(data.result)
             var result = data.result || {};
             if(result.success && result.filename){
-                var file_path = "/static/files/" + result.filename;
+                var file_path = "/avatar/" + result.filename;
                 $("#edit-area").val($("#edit-area").val()+" !["+ result.originFilename +"](" + file_path +  ") ");
             }else{
                 APP.Common.showTipDialog("提示",'上传文件失败'  + (result.msg?": "+result.msg:"")+ '，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');

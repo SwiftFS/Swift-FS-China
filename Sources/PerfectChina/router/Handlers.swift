@@ -15,7 +15,6 @@ class Handlers {
     
     static func topics_category_handler(current_category:Int,request:HTTPRequest,response:HTTPResponse) {
             var context: [String : Any] = [:]
-            
             do{
                 let user_count = try UserServer.get_total_count()
                 context["user_count"] = user_count[0].count
@@ -24,6 +23,7 @@ class Handlers {
                 let comment_count = try CommentServer.get_total_count()
                 context["comment_count"] = comment_count[0].count
                 let (diff,diff_days) = Utils.days_after_registry(req: request)
+                
                 context["diff"] = diff
                 context["diff_days"] = diff_days
                 context["current_category"] = current_category
@@ -63,7 +63,14 @@ class Handlers {
     static func index(data: [String:Any]) throws -> RequestHandler {
         return {
             request, response in
+            
             let current_category = 0
+            if let loginType:String = request.session?.data["loginType"] as? String{
+                if loginType == "github" {
+                    
+                }
+            }
+            
             Handlers.topics_category_handler(current_category: current_category,request: request,response:response)
         }
     }
@@ -97,8 +104,15 @@ class Handlers {
     static func register(data: [String:Any]) throws -> RequestHandler {
         return {
             request, response in
-            response.render(template: "register")
-           
+            
+            
+            let name = request.session?.data["name"] ?? ""
+            let email = request.session?.data["email"] ?? ""
+            let picture_url = request.session?.data["picture"] ?? ""
+            let login = request.session?.data["login"] ?? ""
+            
+            let content:[String:Any] = ["name":name,"email":email,"picture_url":picture_url,"login":login]
+            response.render(template: "register",context: content)
         }
     }
     

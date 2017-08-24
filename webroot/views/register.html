@@ -10,38 +10,55 @@
 {% include "header.html" %}
 <div id="main" class="main-container container">
     <div class="row" style="margin-top:60px;">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    注册新用户
-                </div>
-                <div class="panel-body">
-                    <form class="simple_form ">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="用户名" name="username">
-                        </div>
-
-                       
-                        <div class="form-group">
-                            <input class="form-control" placeholder="密码" type="password" name="password">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="确认密码" type="password" name="password_confirm">
-                        </div>
-
-                        <div class="form-group">
-                            <a id="sign-up-btn" href="javascript:void(0);" class="btn btn-primary">提交注册信息</a>
-                            /
-                            <a class="btn btn-default" href="/auth/login">登录</a>
-                        </div>
-
-                        <div class="form-group" style="display:none;" id="tip">
-                            <div class="alert alert-danger"></div>
-                        </div>
-                    </form>
+       <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">创建新账号</h3>
+        </div>
+        <div class="panel-body">
+            <input type="hidden" name="_token" value="R4uCLoKOsT230WraEXTXzE5vkbUqUv4br0McB1Sf">
+            <div class="form-group">
+                <label class="control-label" for="name">头 像</label>
+                <div class="form-group">
+                    <img src="{{picture_url}}" width="100%">
                 </div>
             </div>
+
+            <div class="form-group ">
+                <label class="control-label" for="name">用户名</label>
+                 <input class="form-control" name="username" type="text" value="{{name}}">
+            </div>
+
+                <div class="form-group ">
+                <label class="control-label" for="github_name">Github Name</label>
+                <input class="form-control" readonly="readonly" name="github_name" type="text" value="{{login}}">
+                
+            </div>
+            
+            <div class="form-group ">
+                <label class="control-label" for="email">邮 箱</label>
+                <input class="form-control" name="email" type="text" value="{{email}}">
+                
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label" for="password">密 码</label>
+                <input class="form-control" name="password" type="password" value="">
+                
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label" for="password_confirm">确认密码</label>
+                <input class="form-control" name="password_confirm" type="password" value="">
+                
+            </div>
+            <div class="form-group" style="display:none;margin-top:10px" id="tip">
+                <div class="alert alert-danger"></div>
+            </div>
+            <input class="btn btn-lg btn-success btn-block" type="submit" value="确 定" id="sign-up-btn">
         </div>
+      </div>
+    </div>
         
     </div>
 </div>
@@ -52,18 +69,23 @@
     $(document).ready(function(){
         $("#sign-up-btn").click(function(){
             var username =$("input[name=username]").val();
+            var email = $("input[name=email]").val();
+            var github_name = $("input[name=github_name]").val();
             var password = $("input[name=password]").val();
             var password_confirm= $("input[name=password_confirm]").val();
-
             $("#tip").hide();
-
             var pattern = /^[A-Za-z][A-Za-z0-9_]+$/;
             if(!username || username.length<4 || username.length>50 || !username.match(pattern)) {
                 $("#tip div").text("用户名为4~50位, 只能输入字母、下划线、数字，必须以字母开头.");
                 $("#tip").show();
                 return;
             }
-
+            var email_pattern = /^([a-zA-Z0-9]+([._\\-])*[a-zA-Z0-9]*)+@([a-zA-Z0-9])+(.([a-zA-Z])+)+$/;
+            if(!email || email.length<4 || email.length>50 || !email.match(email_pattern)) {
+                $("#tip div").text("请输入正确的邮箱地址");
+                $("#tip").show();
+                return;
+            }
             if(!password || password.length<6 || password.length>50){
                 $("#tip div").text("密码长度须为6~50位!");
                 $("#tip").show();
@@ -75,13 +97,14 @@
                 $("#tip").show();
                 return;
             }
-
             $.ajax({
                 url : '/auth/sign_up',
                 type : 'post',
                 data : {
                     username: username,
                     password: hex_md5(password + APP.pwd_secret),
+                    email:email,
+                    github_name:github_name,
                 },
                 dataType : 'json',
                 success : function(result) {

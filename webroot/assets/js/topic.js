@@ -69,7 +69,7 @@
 	        	//console.dir(data.result)
 	        	var result = data.result || {};
 	        	if(result.success && result.filename){
-	        		var file_path = "/static/files/" + result.filename;
+	        		var file_path = "/avatar/" + result.filename;
 	        		$("#reply_content").val($("#reply_content").val()+" !["+ result.originFilename +"](" + file_path +  ") ");
 	        	}else{
 	        		L.Common.showTipDialog("提示",'上传文件失败'  + (result.msg?": "+result.msg:"")+ '，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');

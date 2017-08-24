@@ -1,0 +1,31 @@
+<div class="result">
+<h2 class="title">
+    <a href="{{ $topic->link() }}">{{ topic.title }}</a>
+    <small>by</small>
+    <a href="{{ route('users.show', [$topic->user_id]) }}" title="{{ $topic->user->name }}">
+        <img class="avatar avatar-small" alt="{{ $topic->user->name }}" src="{{ $topic->user->present()->gravatar }}"/>
+        <small>{{ topic.username }}</small>
+    </a>
+
+</h2>
+<div class="info">
+  <span class="url">
+        <a href="{{ $topic->link() }}">{{ $topic->link() }}</a>
+  </span>
+  <span class="date" title="Last Updated At">
+      {{ topic.create_time}}
+      ⋅
+      <i class="fa fa-eye"></i> {{ topic.view_num }}
+      ⋅
+      <i class="fa fa-thumbs-o-up"></i> {{ topic.like_num }}
+      ⋅
+      <i class="fa fa-comments-o"></i> {{ topic.reply_num }}
+
+  </span>
+
+</div>
+<div class="desc">
+    {{ topic.content }}
+</div>
+<hr>
+</div>

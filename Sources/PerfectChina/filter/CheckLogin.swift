@@ -10,7 +10,7 @@ import PerfectLib
 
 
 //检查有没登录
-public  func CheckLogin(data: [String:Any]) throws -> HTTPRequestFilter {
+public func CheckLogin(data: [String:Any]) throws -> HTTPRequestFilter {
     
     return checklogin()
 }
@@ -20,21 +20,21 @@ struct checklogin:HTTPRequestFilter {
     
     func is_login(req:HTTPRequest) -> [String:Any]? {
         
-        guard req.session != nil else {
+        guard let session = req.session,let user = session.data["user"] as? [String : Any] else {
             return nil
         }
-        
-
-        guard let user:[String:Any] = req.session!.data["user"] as? [String : Any]  else{
-            
-            return nil
-        }
-        
         return user
     }
     
     func filter(request: HTTPRequest, response: HTTPResponse, callback: (HTTPRequestFilterResult) -> ()) {
-        guard let st = request.header(HTTPRequestHeader.Name.accept) else{
+        
+        //重定向
+        guard request.path != "/to/github" else {
+            callback(.execute(request, response))
+            return
+        }
+        
+        guard let st = request.header(.accept) else{
             callback(.execute(request, response))
             return
         }
@@ -42,45 +42,51 @@ struct checklogin:HTTPRequestFilter {
             callback(.execute(request, response))
             return
         }
-        
+
+
         let requestPath = request.path
         var in_white_list = false
         var islogin = false     //已经登录
+        
         if requestPath == "//" {
             in_white_list = true
         }else{
             for address in whitelist{
-                if address.components(separatedBy: requestPath).count > 1
-                {
-                   in_white_list = true
+                let judge = Regex(address).match(input: requestPath)
+                if judge == true {
+                    in_white_list = true
                     break
                 }
             }
         }
-        
+
         //判断是否登录
-        let user = is_login(req: request)
-        if (user != nil) {
-            if user?["username"] != nil && user?["userid"] != nil && (user!["username"] as? String != "") && (user!["userid"] as? Int != 0){
+        
+        if let user = is_login(req: request) {
+            if let username = user["username"] as? String,username != "", let userid = user["userid"] as? Int ,userid != 0 {
                 islogin = true
             }
+            
+            //域对象  PageHandlers处理
+            request.scratchPad["locals"] = [
+                    "login":islogin
+                    ,"username":user["username"] ?? ""
+                    ,"userid":user["userid"] ?? 0
+                    ,"userpic":user["userpic"] ?? ""
+                    ,"is_verify":user["is_verify"] ?? ""
+                    ,"email":user["email"] ?? ""
+                    ,"create_time":user["create_time"] ?? ""
+            ]
         }
         
-        //域对象  PageHandlers处理
-        let dic:[String:Any] = [ "login":islogin
-                                ,"username":user?["username"] ?? ""
-                                ,"userid":user?["userid"] ?? 0
-                                ,"create_time":user?["create_time"] ?? ""]
         if in_white_list {
-            request.scratchPad["locals"] = dic
             callback(.continue(request, response))
         }else{
             if islogin {
-                request.scratchPad["locals"] = dic
                 request.session!.data.updateValue(true, forKey: "login")
                 callback(.continue(request, response))
             }else{
-                if let st = request.header(HTTPRequestHeader.Name.accept){
+                if let st = request.header(.accept){
                     //如果是接口请求
                     if st.components(separatedBy: "application/json").count > 1  {
                         callback(.execute(request, response))

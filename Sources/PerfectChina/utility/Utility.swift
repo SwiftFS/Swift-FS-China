@@ -18,9 +18,22 @@
 //
 
 import BCrypt
+import Foundation
 
 // Base class that is then extended by individual helper functions
 public class Utility {
+    
+    static func createFile(name:String, fileBaseUrl:URL,data:Data) -> Bool{
+        let manager = FileManager.default
+        let file = fileBaseUrl.appendingPathComponent(name)
+        let exist = manager.fileExists(atPath: file.path)
+        if !exist {
+            let createSuccess = manager.createFile(atPath: file.path,contents:data,attributes:nil)
+            return createSuccess
+        }
+        return false
+    }
+    
     //bcrypt
     static func encode(message:String) -> String? {
         let secret:String! = pwd_secret

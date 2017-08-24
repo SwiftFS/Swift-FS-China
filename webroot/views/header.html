@@ -17,7 +17,8 @@
             <ul class="nav user-bar navbar-nav navbar-right">
                 {% if locals.login %}
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ locals.username }}
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img style="width:25px;border-radius: 120px;" src="/avatar/{{ locals.userpic }}" alt="64"/>
                 <span class="caret"></span>
                 </a>
                 <button class="navbar-toggle" type="button" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -25,8 +26,9 @@
                 <i class="fa fa-reorder"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                <li class=""><a href="/user/{{locals.username}}/index">我的主页</a></li>
+                <li class=""><a href="/settings">{{ locals.username }}</a></li>
                 <li class=""><div class="divider"></div></li>
+                <li class=""><a href="/user/{{locals.username}}/index">我的主页</a></li>
                 <li class=""><a href="/settings">个人设置</a></li>
                 <li class=""><a href="/topic/new">发布新文章</a></li>
                 <li class=""><div class="divider"></div></li>
@@ -34,26 +36,35 @@
                 </ul>
                 </li>
                 {% else %}
-                <li><a href="/register">注册</a></li>
                 <li><a href="/login">登录</a></li>
+                
                 {% endif %}
+                
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <!-- <li class="nav-search hidden-xs">
+                <li class="nav-search hidden-xs">
                     <form class="navbar-form form-search active" action="/search" method="GET">
                         <div class="form-group">
                             <input class="form-control" name="q" type="text" value="" placeholder="搜索本站内容">
                         </div> <i class="fa btn-search fa-search"></i>
                     </form>
-                </li> -->
-                <li class="notification-count" id="notification-area"> 
+                </li>
+                {% if locals.login %}
+                <li class="notification-count" id="notification-area">
                     <a href="/notification/" class="" title="通知">
                         <i class="fa fa-bell"></i>
                         <span class="count"></span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
             
         </div>
     </nav>
+    {% if  locals.login and not local.is_verifys == 0 %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        邮箱未激活，请前往 {{locals.email}} 查收激活邮件，激活后才能完整地使用社区功能，如发帖和回帖。未收到邮件？请前往 <a href="/email-verification">重发邮件</a> 。
+    </div>
+    {% endif %}
 </div>

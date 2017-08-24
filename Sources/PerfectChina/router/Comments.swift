@@ -118,19 +118,21 @@ class Comments {
                 if musArr != nil && musArr!.count > 0 {
                     for (_,v) in musArr!.enumerated(){
                         if v != "" {
-                            clean_mus.append(v)
+                            let after = "'\(v)'"
+                            clean_mus.append(after)
                         }
                     }
+                    
                     if clean_mus.count > 0 {
                         let usernames = clean_mus.joined(separator: ",")
                         if usernames != "" {
                             let row =  try UserServer.query_ids(username: usernames)
+                            
                             if row != nil {
                                 for u in  row! {
                                     try NotificationServer.comment_mention(user_id: u.id, from_id: user_id, content: "", topic_id: topic_id, comment_id: new_comment_id)
                                 }
                             }
-                            
                         }
                     }
                 }

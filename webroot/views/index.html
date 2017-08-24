@@ -20,22 +20,23 @@
                         <a id="noreply-topics-btn" href="javascript:void(0);">无人问津</a>
                     </div>
                 </div>
-                <div class="panel-body" id="topics-body"></div><!-- topics -->  
-                <div class="panel-footer clearfix" id="pagebar" style="display:none;"></div><!-- page bar -->  
+                <div class="panel-body" id="topics-body"></div>
+                <div class="panel-footer clearfix" id="pagebar" style="display:none;"></div>
             </div>
         </div>
         
         <div class="sidebar col-md-3">
             {% if diff_days < 3 %}
-                
                 <div class="panel panel-default">
                 <div class="panel-heading">关于本站</div>
                 <div class="panel-body">
-                    <p>本站由SwiftWeb(Perfect)服务搭建而成,正在开发中,期待共同爱好者的加入,让SwiftWeb也拥有一席之位</p>
+                    <p>本站由SwiftWeb(Perfect)服务搭建而成</p>
                     <p>qq群514517311</p>
                     <p>
                     <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px">
+                        {% if diff_days > 3 and locals.create_time  and locals%}
                         <li>注册时间超过3天</li>
+                        {% endif %}
                         {% if locals.create_time  and locals %}
                         <li>您注册于{{locals.create_time}}</li>
                         {% endif %}
@@ -51,8 +52,8 @@
                 <div class="panel-heading">友情社区</div>
                 <ul class="list-group" style="text-align:center">
                     <li class="list-group-item">
-                        <a href="http://golangtc.com/" rel="nofollow" title="Golang 中国" target="_blank">
-                            <img src="/assets/community/golang.png" style="width:120px; margin:6px 0;">
+                        <a href="https://ruby-china.org" target="_blank" rel="nofollow">
+                            <img src="/assets/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
                         </a>
                     </li>
                 </ul>
