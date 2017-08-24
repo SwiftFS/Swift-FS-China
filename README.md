@@ -45,9 +45,9 @@
 4.  ~~邮箱验证~~
 5.  ~~集成redis和redis-session~~ 弃坑
 6.  集成用openresty 做redis 管理
-6.  集成nginx 
-7.  修改UI/优化
-
+7.  集成nginx 
+8.  修改UI/优化
+9.  graphQL
 
 
 
