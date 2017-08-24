@@ -16,8 +16,7 @@ let package = Package(
         .Package(url: "https://github.com/kylef/Stencil.git", majorVersion: 0, minor: 9),
         .Package(url: "https://github.com/PerfectlySoft/Perfect-SMTP.git", majorVersion: 1, minor: 0),
         .Package(url: "https://github.com/PerfectlySoft/Perfect-Redis.git", majorVersion: 2),
-        .Package(url:"https://github.com/PerfectlySoft/Perfect-FastCGI.git", majorVersion: 2, minor: 0),
-        .Package(url: "https://github.com/vapor/redis.git", majorVersion: 2)
+        .Package(url:"https://github.com/PerfectlySoft/Perfect-FastCGI.git", majorVersion: 2, minor: 0)
 
     ]
 )
