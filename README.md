@@ -38,17 +38,6 @@
 * 日志输出在更目录 ./webLog.log"
 
 
-### 计划
-<!--1.  ~~全文索引~~
-2.  ~~图片上传~~
-3.  ~~完成github登录~~
-4.  ~~邮箱验证~~
-5.  ~~集成redis和redis-session~~ 弃坑
-6.  集成用openresty 做redis 管理
-7.  集成nginx 
-8.  修改UI/优化
-9.  graphQL-->
-10. 
 ## TODO
 * [x] 用户相关
   * [x] 用户注册
@@ -62,6 +51,7 @@
   * [x] 修改密码
   * [x] 用户关注
   * [x] 通知阅读
+  * [x] 图片上传
   * [x] 通知单条删除和全部删除
 * [ ] 后台系统 打算用 antdesign or next.js?
   * [ ] 管理用户
@@ -72,8 +62,11 @@
   * [ ] MakeFile
   * [ ] Docker
 * [ ] 其他
+  * [x] 全文索引
   * [ ] ajax改成模板渲染
   * [ ] 优化UI
+  * [ ] openresty
+  * [ ] redis
 
  
  
