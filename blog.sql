@@ -20,6 +20,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+
 # Dump of table category
 # ------------------------------------------------------------
 
@@ -57,7 +58,7 @@ CREATE TABLE `collect` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user_topic` (`user_id`,`topic_id`),
   KEY `index_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 
 
@@ -71,7 +72,7 @@ CREATE TABLE `comment` (
   `topic_id` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `content` varchar(3000) NOT NULL DEFAULT '',
+  `content` TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `index_topic_id` (`topic_id`),
   KEY `index_user_id` (`user_id`),
@@ -225,3 +226,6 @@ CREATE TABLE `user` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- insert into topic VALUES(42,'123','123😟',3,'2016-02-27 22:44:23','2016-02-27 22:44:23','mubin',0,0,0,0,0,0,'','2016-02-27 22:44:23',1,0);
