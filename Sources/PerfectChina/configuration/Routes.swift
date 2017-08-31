@@ -42,7 +42,7 @@ func mainRoutes() -> [[String: Any]] {
 	
     //github
     routes.append(["method":"get", "uri":"/to/github", "handler":OAuth.sendToProvider])
-    
+    //
     routes.append(["method":"get", "uri":"/auth/response/github", "handler":OAuth.authResponse])
 
     
@@ -51,6 +51,7 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"get", "uri":"/index", "handler":Handlers.index])
     routes.append(["method":"get", "uri":"/share", "handler":Handlers.share])
     routes.append(["method":"get", "uri":"/ask", "handler":Handlers.ask])
+    routes.append(["method":"get", "uri":"/wiki", "handler":Handlers.wiki])
     routes.append(["method":"get", "uri":"/settings", "handler":Handlers.settings])
 	routes.append(["method":"get", "uri":"/about", "handler":Handlers.about])
 	routes.append(["method":"get", "uri":"/login", "handler":Handlers.login])

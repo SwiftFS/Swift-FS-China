@@ -91,12 +91,17 @@ class Handlers {
         }
     }
     
+    static func wiki(data: [String:Any]) throws -> RequestHandler {
+        return {
+            request, response in
+            response.render(template: "wiki")
+        }
+    }
     
     static func login(data: [String:Any]) throws -> RequestHandler {
         return {
             request, response in
-            
-            
+
             response.render(template: "login")
            
         }
