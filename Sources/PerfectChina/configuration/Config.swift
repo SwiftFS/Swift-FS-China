@@ -41,62 +41,64 @@ struct Options:ConnectionOption {
     var port: Int
     
     var host: String
+    
+    var encoding: Connection.Encoding
 }
 
 
 func config() {
     
     
-//应用启动设置
-        let dic = ApplicationConfiguration()
-        let host = dic.mysqlhost
-        let user = dic.mysqluser
-        let pwd = dic.mysqlpwd
-        let database = dic.mysqldbname
-        let port = dic.mysqlport
+    //应用启动设置
+    let dic = ApplicationConfiguration()
+    let host = dic.mysqlhost
+    let user = dic.mysqluser
+    let pwd = dic.mysqlpwd
+    let database = dic.mysqldbname
+    let port = dic.mysqlport
     
-        pwd_secret = dic.pwd_secret
+    pwd_secret = dic.pwd_secret
     
-        let option = Options.init(database: database, password: pwd, user: user, port: port, host: host)
+    let option = Options.init(database: database, password: pwd, user: user, port: port, host: host, encoding: Connection.Encoding.UTF8MB4)
+    
+    pool = ConnectionPool.init(options: option)
+    pool.maxConnections = 10
+    
+    
+    do{
+        let _:[Check] = try pool.execute({ conn in
+            try conn.query("show tables");
+        })
+        Log.info(message: "连接数据库成功")
         
-        pool = ConnectionPool.init(options: option)
-        pool.maxConnections = 5
-    
-    
-        do{
-            let _:[Check] = try pool.execute({ conn in
-                try conn.query("show tables");
-            })
-           Log.info(message: "连接数据库成功")
-            
-        }catch{
-            fatalError("\(error)") // fatal error launching one of the servers
-        }
-
+    }catch{
+        fatalError("\(error)") // fatal error launching one of the servers
     }
     
-    struct Check: QueryRowResultType, QueryParameterDictionaryType {
+}
+
+struct Check: QueryRowResultType, QueryParameterDictionaryType {
     let Tables_in_blog: String
     
     enum Status: String, SQLEnumType {
-    case created = "created"
-    case verified = "verified"
+        case created = "created"
+        case verified = "verified"
     }
     
     // Decode query results (selecting rows) to a model
     static func decodeRow(r: QueryRowResult) throws -> Check {
-    return try Check(
-    Tables_in_blog: r <| "Tables_in_blog" // as field name
-    )
+        return try Check(
+            Tables_in_blog: r <| "Tables_in_blog" // as field name
+        )
     }
     
     // Use this model as a query paramter
     // See inserting example
     func queryParameter() throws -> QueryDictionary {
-    return QueryDictionary([
-    //"id": // auto increment
-    "Tables_in_blog": Tables_in_blog,
-    ])
+        return QueryDictionary([
+            //"id": // auto increment
+            "Tables_in_blog": Tables_in_blog,
+            ])
     }
 }
 
