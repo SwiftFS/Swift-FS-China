@@ -1,4 +1,5 @@
 (function (L) {
+	console.log(L)
     var _this = null;
     L.Topic = L.Topic || {};
     _this = L.Topic = {
@@ -8,41 +9,30 @@
         },
  
         init: function (topic_id) {
-        	_this.data.topic_id = topic_id;
 
-        	//获取文章
-        	$.ajax({
-	            url : '/topic/' + topic_id + '/query',
-	            type : 'get',
-	            data: {},
-	            dataType : 'json',
-	            success : function(result) {
-	                if(result.success){
-	                	var tpl = $("#topic-body-tpl").html();
-	                	result.data.topic.content = result.data.topic.content || "";
-	                	result.data.topic.content = L.Common.md.render(result.data.topic.content);
+//        	//获取文章
+//        	$.ajax({
+//	            url : '/topic/' + topic_id + '/query',
+//	            type : 'get',
+//	            data: {},
+//	            dataType : 'json',
+//	            success : function(result) {
+//	                if(result.success){
+//	                	var tpl = $("#topic-body-tpl").html();
+//	                	result.data.topic.content = result.data.topic.content || "";
+//	                	result.data.topic.content = L.Common.md.render(result.data.topic.content);
+//
+//			            var html = juicer(tpl, result.data);
+//			            $("#topic-body").html(html).show();
+//			            $("#reply").show();
+//
+//			            var tpl2 = $("#ops-area-tpl").html();
+//			            var html2 = juicer(tpl2, result.data);
+//			            $("#ops-area").html(html2);
+//
+            _this.loadComments();
+            _this.initEvents();
 
-			            var html = juicer(tpl, result.data);
-			            $("#topic-body").html(html).show();
-			            $("#reply").show();
-
-			            var tpl2 = $("#ops-area-tpl").html();
-			            var html2 = juicer(tpl2, result.data);
-			            $("#ops-area").html(html2);
-
-			            _this.loadComments();
-        				_this.initEvents();
-
-        				emojify.run(document.getElementById('article-content'));
-        				$("title").append(" "+result.data.topic.title);
-	                }else{
-	                    L.Common.showTipDialog("提示", result.msg);
-	                }
-	            },
-	            error : function() {
-	            	L.Common.showTipDialog("提示", "发送请求失败.");
-	            }
-	        });
         },
 
         initEvents: function(){

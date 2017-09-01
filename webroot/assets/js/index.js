@@ -39,6 +39,7 @@
         },
 
         loadTopics: function(type, pageNo){
+            NProgress.start();
         	pageNo = pageNo || 1;
         	$.ajax({
 	            url : '/topics/all',
@@ -51,6 +52,7 @@
 	            },
 	            dataType : 'json',
 	            success : function(result) {
+                   NProgress.done();
 	                if(result.success){
 	                	if(!result.data || (result.data && result.data.topics.length<=0)){
 	                		$("#topics-body").html('<div class="alert alert-info" role="alert">此分类下没有任何内容</div>');
@@ -62,6 +64,7 @@
 	                }
 	            },
 	            error : function() {
+                   NProgress.done();
 					console.log("error")
 	                $("#topics-body").html('<div class="alert alert-danger" role="alert">error to send request.</div>');
 	            }
