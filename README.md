@@ -62,7 +62,7 @@
   * [ ] Docker
 * [ ] 其他
   * [x] 全文索引
-  * [ ] ajax改成模板渲染
+  * [x] ajax改成模板渲染
   * [ ] 优化UI
   * [ ] openresty
   * [ ] redis

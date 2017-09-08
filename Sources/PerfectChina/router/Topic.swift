@@ -9,6 +9,7 @@
 import Foundation
 import PerfectHTTP
 import PerfectLib
+import PerfectMarkdown
 
 
 
@@ -301,8 +302,14 @@ class Topic {
                 let topic = row[0]
                 let is_self = Topic.isself(req: req, uid:topic.user_id)
                 
-                let topicDic = topic.toJSON()!
+                var topicDic = topic.toJSON()!
                 
+                guard let html = topic.content.markdownToHTML else {
+                    
+                    return
+                }
+                
+                topicDic["content"] = html
                 res.render(template: "topic/view", context: ["topic":["id":topic_id!],"data":["topic":topicDic,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
                 
             }catch{
