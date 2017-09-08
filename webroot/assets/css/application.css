@@ -362,10 +362,6 @@ a {
     background: #ADD0FF;
     color: #4A5E9E;
 }
-.alert-warning {
-    background: #FFF280;
-    color: #CD8546;
-}
 .alert-warning hr {
     border-color: #DAC264 !important;
 }
@@ -476,15 +472,7 @@ form .form-actions {
 .popover > .arrow:after {
     border-color: #EEF3F5;
 }
-.alert {
-    padding: 5px 10px 3px;
-    border: 0px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 0px;
-    font-size: 13px;
-    transform: scale(1, 1);
-    transition: all .3s;
-}
+
 .alert strong {
     color: #CD3A14;
 }

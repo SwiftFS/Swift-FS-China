@@ -1,0 +1,6 @@
+{% if  locals.login and not local.is_verifys == 0 %}
+<div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    邮箱未激活，请前往 {{locals.email}} 查收激活邮件，激活后才能完整地使用社区功能，如发帖和回帖。未收到邮件？请前往 <a href="/email-verification">重发邮件</a> 。
+</div>
+{% endif %}

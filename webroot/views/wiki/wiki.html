@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SwfitFS China社区 &raquo; Wiki</title>
+
+    {% include "meta.html" %}
+</head>
+
+<body data-controller-name="sessions">
+    {% include "header.html" %}
+    <div id="main" class="main-container container">
+        {% include "verify.html" %}
+        <div class="row">
+            <div class="sidebar wiki-sidebar col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong>导航</strong>
+                        <ul>
+                            <li><a href="/wiki">首页</a></li>
+                            <li><a href="/wiki/recent">Wiki 目录索引</a></li>
+                            <li class="hide-ios"><a href="/wiki/new">创建 Wiki 页面</a></li>
+                        </ul>
+                        
+                        <strong>Wiki 推荐内容</strong>
+                        <ul>
+                            <li><a href="/wiki/tools">Swift 开发工具</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="markdown">
+                            <p>本栏目致力于组织整理 Swift 中文社区的精华文章，便于大家快速查阅。</p>
+                            
+                            <p>欢迎热心开发者参与维护社区 Wiki 资料，你可以做：</p>
+                            <ol>
+                                <li>翻译国外高质量的 Swift 技术文章</li>
+                                <li>撰写完整的 Swift 技术教程，新手教程等</li>
+                                <li>撰写或者翻译热门 Gem 的中文使用指导</li>
+                                <li>分享各类部署方案</li>
+                            </ol>
+                            
+                            <h3>必读推荐</h3>
+                            <ul>
+                                <li><a href="/wiki/the-Perfect-doctrine">The Perfect Doctrine - Perfect 信条</a></li>
+                            </ul>
+                            
+                            <strong>Swift 入门教程</strong>
+                            <ul>
+                                <li><a href="/wiki/the-Perfect-doctrine">Swift on Perfect 信条</a></li>
+                                <li><a href="/wiki/install_Swift_guide">如何快速正确的安装 Swift, Perfect 运行环境</a></li>
+                                <li><a href="/wiki/start_leaning_Perfect">如何从零开始学会 Perfect</a></li>
+                                <li><a href="https://Swift-china.github.io/Perfect-guides/" target="_blank">Perfect Guides 简体中文</a>
+                                </li></ul>
+                            
+                            <strong>Swift 高级进阶教程</strong>
+                            <ul>
+                                <li><a href="http://api.SwiftonPerfect.org">Perfect API 文档</a></li>
+                                <li><a href="/wiki/deployment-Perfect">深入透彻了解 Perfect 应用部署</a></li>
+                                <li><a href="/wiki/Perfect-caching">Perfect 缓存相关</a></li>
+                                <li><a href="/wiki/Swift-pref">Swift 性能分析与优化</a></li>
+                                <li><a href="/wiki/activerecord-topics">ActiveRecord 相关深入文章</a></li>
+                                <li><a href="/wiki/Perfect-tips">Swift、Perfect 高级技巧</a></li>
+                                <li><a href="/wiki/Perfect-search">Perfect 实现全文搜索</a></li>
+                                <li><a href="/wiki/grape-topics">Grape 相关文章</a></li>
+                            </ul>
+                            
+                            <strong>其他地方的中文资料</strong>
+                            <ul>
+                                <li><a href="http://saito.im/slide/Swift-new.html" target="_blank">Swift 语言新手教程</a></li>
+                                <li><a href="http://rogerdudler.github.com/git-guide/index.zh.html" target="_blank">Git 版本管理工具快速入门</a></li>
+                                <li><a href="http://ihower.tw/Perfect3/" target="_blank">Swift on Perfect 實戰聖經</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            APP.Common.resetNav("nav-wiki");
+        });
+    </script>
+    {% include "footer.html" %}
+</body>
+
+</html>

@@ -73,6 +73,7 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` TEXT NOT NULL DEFAULT '',
+  `category` int(5) NOT NULL DEFAULT '0',  -- 0是 文章 1是wiki
   PRIMARY KEY (`id`),
   KEY `index_topic_id` (`topic_id`),
   KEY `index_user_id` (`user_id`),
@@ -207,25 +208,29 @@ CREATE TABLE `user` (
   FULLTEXT (username) WITH PARSER ngram
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- LOCK TABLES `user` WRITE;
--- /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-
--- INSERT INTO `user` (`id`, `username`, `password`, `avatar`, `create_time`, `city`, `website`, `company`, `sign`, `github`,`github_name`,`github_id`, `email`, `email_public`, `is_mubin`)
--- VALUES
--- 	(3,'mubin','2d39682dbb53e8b7df86581b0e48a5f8a4f2815617360c4d9607945b5cdde4c5','m.png','2017-08-8 19:08:00','佛山','http://182.61.33.196/','swiffs','nothing at all.','mubin','mubin','12312232','mubin.wu@gmail.com',0,1);
--- -- /*!40000 ALTER TABLE `user` ENABLE KEYS */;
--- UNLOCK TABLES;
--- LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
 
+# Dump of table wiki
+# ------------------------------------------------------------
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+DROP TABLE IF EXISTS `wiki`;
 
-
--- insert into topic VALUES(42,'123','123😟',3,'2016-02-27 22:44:23','2016-02-27 22:44:23','mubin',0,0,0,0,0,0,'','2016-02-27 22:44:23',1,0);
+CREATE TABLE `wiki` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `content` TEXT NOT NULL DEFAULT '',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL,
+  `user_name` varchar(255) NOT NULL DEFAULT '' COMMENT '创建者用户名',
+  `like_num` int(11) NOT NULL DEFAULT '0' COMMENT '赞个数',
+  `reply_num` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
+  `view_num` int(11) NOT NULL DEFAULT '0' COMMENT '阅读数',
+  `last_reply_id` int(11) NOT NULL DEFAULT '0' COMMENT '最后回复者id',
+  `last_reply_name` varchar(255) NOT NULL DEFAULT '' COMMENT '最后回复者用户名',
+  `last_reply_time` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `is_recommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '推荐',
+  `url_path` varchar(20) NOT NULL UNIQUE COMMENT '路径', 
+  PRIMARY KEY (`id`),
+  FULLTEXT (title,content) WITH PARSER ngram
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

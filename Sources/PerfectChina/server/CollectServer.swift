@@ -12,20 +12,23 @@ import MySQL
 
 struct CollectServer {
     public static func cancel_collect(user_id:Int,topic_id:Int) throws -> Bool {
+
         return try pool.execute{
             try $0.query("delete from collect where user_id=? and topic_id=?",[user_id,topic_id])
             }.affectedRows > 0
     }
     
     public static func collect(user_id:Int,topic_id:Int) throws -> Bool {
-       
+
         return try pool.execute{
             try $0.query("insert into collect (user_id,topic_id) values(?,?) ON DUPLICATE KEY UPDATE create_time=CURRENT_TIMESTAMP ",[user_id,topic_id])
             }.insertedID > 0
     }
     
     public static func get_all_of_user(user_id:Int,page_no:Int,page_size:Int) throws -> [CollectEntity] {
+        
 
+        
         return try pool.execute{
             try $0.query("select t.*, u.avatar as avatar, cc.name as category_name from collect c " +
                 " right join topic t on c.topic_id=t.id " +

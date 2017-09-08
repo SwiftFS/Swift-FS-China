@@ -90,13 +90,7 @@ class Handlers {
             Handlers.topics_category_handler(current_category: current_category,request: request,response:response)
         }
     }
-    
-    static func wiki(data: [String:Any]) throws -> RequestHandler {
-        return {
-            request, response in
-            response.render(template: "wiki")
-        }
-    }
+
     
     static func login(data: [String:Any]) throws -> RequestHandler {
         return {

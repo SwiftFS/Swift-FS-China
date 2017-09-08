@@ -269,7 +269,47 @@ class Topic {
             req, res in
             
             let topic_id = req.urlVariables["topic_id"]
-            res.render(template: "topic/view", context: ["topic":["id":topic_id!]])
+            
+            do {
+                guard (topic_id != nil) else{
+                    try res.setBody(json: ["success":false,"msg":"要查询的文章id不能为空"])
+                    res.completed()
+                    return
+                }
+                let user:[String:Any]? = req.session?.data["user"] as? [String : Any]
+                let current_userid = user?["userid"]
+                var is_collect = false
+                var is_like = false
+                
+                if "\(String(describing: current_userid))".int != nil && "\(current_userid!)".int! != 0 {
+                    is_collect = try CollectServer.is_collect(current_userid: "current_userid".int!, topic_id: topic_id!)
+                    is_like = try LikeServer.is_like(current_userid: "current_userid".int!, topic_id: (topic_id?.int!)!)
+                }
+                
+                guard ((topic_id?.int) != nil) else {
+                    try res.setBody(json: ["success":false,"msg":"无法查到当前文章"])
+                    res.completed()
+                    return
+                }
+                
+                let row =  try TopicServer.get(id: (topic_id!.int)!)
+                guard row.count >= 1 else{
+                    try res.setBody(json: ["success":false,"msg":"无法查到当前文章"])
+                    res.completed()
+                    return
+                }
+                let topic = row[0]
+                let is_self = Topic.isself(req: req, uid:topic.user_id)
+                
+                let topicDic = topic.toJSON()!
+                
+                res.render(template: "topic/view", context: ["topic":["id":topic_id!],"data":["topic":topicDic,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
+                
+            }catch{
+                Log.error(message: "\(error)")
+            }
+            
+            
         }
     }
     

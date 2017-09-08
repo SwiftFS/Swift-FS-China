@@ -12,7 +12,7 @@ import MySQL
 struct LikeServer {
     
     public static func like(user_id:Int,topic_id:Int) throws -> Bool{
-  
+   
         return try pool.execute{
             try $0.query("insert into `like` (user_id,topic_id) values(?,?) ON DUPLICATE KEY UPDATE create_time=CURRENT_TIMESTAMP",[user_id,topic_id])
             }.insertedID > 0

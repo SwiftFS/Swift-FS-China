@@ -13,6 +13,7 @@ import MySQL
 struct CommentServer {
     
    public static func delete(user_id:Int,comment_id:Int)throws -> Bool{
+        
 
         return try pool.execute{
             try $0.query("delete from comment where id=? and user_id=?",[comment_id,user_id])
@@ -21,7 +22,7 @@ struct CommentServer {
     
     
    public static func get_total_count_of_user(user_id:Int) throws -> Int{
-
+ 
         let row:[Count] = try pool.execute{
             try $0.query("select count(c.id) as count from comment c " +
                 "right join topic t on c.topic_id=t.id " +
@@ -31,6 +32,9 @@ struct CommentServer {
     }
     
    public static func get_all_of_user(user_id:Int,page_no:Int,page_size:Int) throws -> [ReplyCommentEntity]{
+        
+
+        
         var page_no = page_no
         if page_no < 1 {
             page_no = 1
@@ -43,8 +47,7 @@ struct CommentServer {
     }
     
    public static func query(comment_id:Int) throws -> CommentEntity? {
-
-        let row:[CommentEntity] = try pool.execute{
+              let row:[CommentEntity] = try pool.execute{
             try $0.query("select c.*, u.avatar as avatar, u.username as user_name from comment c " +
                 "left join user u on c.user_id=u.id " +
                 "where c.id=? " ,[comment_id])
@@ -63,6 +66,7 @@ struct CommentServer {
     }
     
    public static func reset_topic_comment_num(topic_id:Int)throws -> Bool{
+    
         
         return try pool.execute{
             try $0.query("update topic set reply_num=(select count(id) from comment where topic_id=?) where id=?", [topic_id,topic_id])
@@ -71,6 +75,7 @@ struct CommentServer {
     
    public static func new(topic_id:Int,user_id:Int,content:String)throws -> UInt64?{
         
+
         let status = try pool.execute{
             try $0.query("insert into comment(topic_id,user_id, content) values(?,?,?)",[topic_id,user_id,content])
         }
@@ -78,10 +83,7 @@ struct CommentServer {
     }
     
    public static func get_total_count() throws -> [Count] {
-        //        let row:[Count] = try pool.execute({ conn in
-        //            try conn.query("select count(c.id) as comment_count from comment c ");
-        //        })
-        //        return row
+
         return try pool.execute{
             try $0.query("select count(c.id) as comment_count from comment c ")
         }

@@ -13,6 +13,7 @@ import Foundation
 struct TopicServer {
     
     public static func new(title:String,content:String,user_id:Int,user_name:String,category_id:Int)throws -> Int?{
+
         let status = try pool.execute{
             try $0.query("insert into topic(title, content, user_id, user_name, category_id, create_time) values(?,?,?,?,?,?)"
                 ,[title,content,user_id,user_name,category_id,Utils.now()])
@@ -29,9 +30,8 @@ struct TopicServer {
     }
     
     
-    
     public static func get_my_topic(user_id:Int,id:Int) throws -> [ArticleEntity] {
-        
+  
         return try pool.execute{
             try $0.query("select t.*, u.avatar as avatar, c.name as category_name from topic t " +
                 " left join user u on t.user_id=u.id " +
@@ -43,13 +43,14 @@ struct TopicServer {
     }
     
     public static func delete_topic(user_id:Int,topic_id:Int) throws -> Bool {
+ 
         return try pool.execute{
             try $0.query("delete from topic where id=? and user_id=?",[topic_id,user_id])
             }.affectedRows > 0
     }
     
     public static func get_all_of_user(user_id:Int,page_no:Int,page_size:Int) throws -> [ArticleEntity] {
-
+       
         var page_no = page_no
         if page_no < 1 {
             page_no = 1
@@ -69,7 +70,7 @@ struct TopicServer {
         if page_no < 1 {
             page_no = 1
         }
-
+    
         return try pool.execute{
             try $0.query("select t.*, u.avatar as avatar, c.name as category_name  from topic t " +
                 "left join user u on t.user_id=u.id " +
@@ -81,7 +82,7 @@ struct TopicServer {
     }
     
     public static func get_total_hot_count_of_user(user_id:Int) throws -> Int {
-  
+      
         let row:[Count] = try pool.execute{
             try $0.query("select count(id) as count from topic where user_id=?",[user_id])
         }
@@ -89,14 +90,14 @@ struct TopicServer {
     }
     
     public static func get_total_count() throws -> [Count] {
-
+ 
         return try pool.execute{
             try $0.query("select count(*) from topic")
         }
     }
     
     public static func get_total_count_of_user(user_id:Int) throws -> Int {
-
+   
         let row:[Count] = try pool.execute{
             try $0.query("select count(id) as c from topic where user_id=?",[user_id]);
         }
@@ -235,13 +236,15 @@ struct TopicServer {
                 }
             }
             return row[0].count
-      
+            
+          
         }catch{
             return 0
         }
     }
     public static func reset_last_reply(topic_id:Int,user_id:Int,user_name:String,last_reply_time:Date) throws{
         
+ 
         _ = try pool.execute{
             try $0.query("update topic set last_reply_id=?, last_reply_name=?, last_reply_time=? where id=?", [user_id,user_name,last_reply_time,topic_id])
         }

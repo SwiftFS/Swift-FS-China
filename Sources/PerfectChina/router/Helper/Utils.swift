@@ -37,7 +37,7 @@ class Utils {
     
     class func now() -> Date{
         
-                return  Date()
+        return  Date()
     }
     
     class func string_split (str:String?,delimiter:String?) -> String?{

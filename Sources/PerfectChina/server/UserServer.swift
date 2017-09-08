@@ -11,6 +11,14 @@ import MySQL
 
 struct UserServer {
     
+    //是否管理员
+    public static func check_is_admin(userid:Int) throws -> Int{
+        let row:[IDEntity] = try pool.execute{
+            try $0.query("select is_admin from user where userid = ?",[userid]);
+        }
+        return row.count
+    }
+    
     public static func update_avatar(avatar:String,userid:Int) throws -> Bool{
 
         return try pool.execute{
@@ -19,21 +27,21 @@ struct UserServer {
     }
     
     public static func update_pwd(userid:Int,new_pwd:String)throws->Bool{
-   
+
         return try pool.execute{
             try $0.query(" update user set password=? where id=?", [new_pwd,userid])
             }.affectedRows > 0
     }
     
     public static func update(user_id:Int,email:String,email_public:Int,city:String,company:String,github:String,website:String,sign:String) throws -> Bool{
-
+      
         return try pool.execute{
             try $0.query("update user set email=?, email_public=?, city=?, company=?, github=?, website=?, sign=? where id=?", [email,email_public,city,company,github,website,sign,user_id])
             }.affectedRows > 0
     }
     
     public static func query_ids(username:String) throws -> [IDEntity]?{
-
+  
         let row:[IDEntity] = try pool.execute{
             try $0.query("select id from user where username in ("+" \(username) " + "+");
         }
@@ -41,7 +49,7 @@ struct UserServer {
     }
     
     public static func query(username:String,password:String) throws -> [UserEntity] {
-
+ 
         return try pool.execute{ conn in
             try conn.query("select * from user where username=? and password=?",[username,password]);
         }
@@ -58,7 +66,7 @@ struct UserServer {
     
     
     public static func new(username:String,password:String,avatar:String,email:String,github_id:Int,github_name:String) throws -> Int?{
-
+        
        let user = UserEntity(id: .noID, username: username, password: password, avatar: avatar, create_time: nil, city: "", website: "", company: "", sign: "", github: "", github_name: github_name, is_verify: 0, github_id: github_id, email: email, email_public: 0, is_admin: 0)
         let status = try pool.execute{
             try $0.query("INSERT INTO user SET ?",[user])
@@ -67,7 +75,7 @@ struct UserServer {
     }
     
     public static func get_total_count() throws -> [Count] {
-
+ 
         return try pool.execute{
             try $0.query("select count(*) from user");
         }
@@ -82,7 +90,7 @@ struct UserServer {
     }
     
     public static func query_by_id(id:Int) throws -> UserEntity?{
-
+ 
         let row:[UserEntity] = try pool.execute{
             try $0.query("select * from user where id=?",[id])
         }

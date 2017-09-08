@@ -1,7 +1,5 @@
 # SwiftFS China
 
-
-
 ![截图](https://segmentfault.com/img/bVShiH?w=1842&h=1256)
 
 -------
@@ -12,6 +10,7 @@
 * 主要页面直接采用了ruby on china的样式
 * 采用的MySQL，文件本地存储
 * 本项目只是骨架,未完全完成。
+
 
 
 ### 运行环境
