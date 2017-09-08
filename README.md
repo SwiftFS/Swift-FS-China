@@ -1,6 +1,6 @@
 # SwiftFS China
 
-![截图](https://segmentfault.com/img/bVShiH?w=1842&h=1256)
+![截图](https://segmentfault.com/img/bVUDLy?w=2396&h=1414)
 
 -------
 
