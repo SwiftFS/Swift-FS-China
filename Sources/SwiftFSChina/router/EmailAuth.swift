@@ -72,12 +72,13 @@ class EmailAuth{
                 let encodeUserSt = Utility.encode(message: user.username)
                 
                 guard encodeUserSt == secret else{
-                    
                     return
                 }
                 
-                let judge =  try UserServer.update_verify(id: user.id.id.id)
+                 _ = try UserServer.update_verify(id: user.id.id.id)
                 
+                req.session?.data["is_verify"] = 1
+                res.sessionRedirect(path: "/index", session: req.session!)
                 
             }catch{
                 Log.error(message: "\(error)")
@@ -104,12 +105,13 @@ class EmailAuth{
         
         //encodeName
         let encodeUsername = Utility.encode(message: send_name)
-        let user_email = email
+        
         
         // set the html content
+        let skip = "\(ApplicationConfiguration.init().baseURL)/verification/\(String(describing: encodeUsername!))?email=\(send_email)"
         email.content = "<p>Hi \(send_name)，欢迎加入 SwiftFS China 社区。这里是SwiftWeb开发" + "社区，致力于打造SwiftWeb开发 为开发者提供一个分享创造、结识伙伴、协同互助的平台!</p></br>" +
             "<p>为了保证社区功能的正常使用，请点击以下链接激活账号:</p>" +
-            "<a>http://127.0.0.1:8181/verification/\(String(describing: encodeUsername!))?email=\(user_email)</a>"
+            "<a href='\(skip)'>\(skip)</a>"
         
         email.to.append(Recipient(address: send_email))
         

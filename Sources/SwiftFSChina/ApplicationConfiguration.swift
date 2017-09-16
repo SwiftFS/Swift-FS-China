@@ -22,6 +22,9 @@ let whitelist = [
     "^/m2",
     "^/index$",
     "^/ask$",
+    "^/wiki$",
+    "^/wiki/$",
+    "^/wiki/[0-9a-zA-Z-_]+",
     "^/share$",
     "^/category/[0-9]+$",
     "^/topics/all$",
@@ -51,22 +54,22 @@ let whitelist = [
 
 #if os(Linux)
     struct ApplicationConfiguration {
-        let baseURL =  "http://localhost:8181"
+        let baseURL =  "http://swiftfs.org"
         let baseDomain = "localhost"
         let mysqldbname  = "blog"
         let mysqlhost = "127.0.0.1"
         let mysqlport = 3306
         let mysqlpwd = "123456"
         let mysqluser =  "root"
-        let httpport =  80
-        let pwd_secret = "ijkmhytgrf45terf" //-- 用于存储密码的盐, 16位数
+        let httpport =  8181
+        let pwd_secret = "ffffffffffffffff" //-- 用于存储密码的盐, 16位数
         
         //重定向
-        let endpointAfterAuth = "http://127.0.0.1/auth/response/github"
-        let redirectAfterAuth = "http://127.0.0.1/register"
+        let endpointAfterAuth = "swiftfs.org/auth/response/github"
+        let redirectAfterAuth = "swiftfs.org/register"
         
-        let appid = "xxxxxxxxxxxxxxxxxxxxxx"
-        let secret = "xxxxxxxxxxxxxxxxxxxxxx"
+        let appid = "xxx"
+        let secret = "xxx"
     }
     
 #else
@@ -79,14 +82,14 @@ let whitelist = [
         let mysqlpwd = ""
         let mysqluser =  "root"
         let httpport =  8181
-        let pwd_secret = "ijkmhytgrf45terf" //-- 用于存储密码的盐 16位数
+        let pwd_secret = "xxxxxxxxxxxxxxxx" //-- 用于存储密码的盐 16位数
         
         //重定
-        let endpointAfterAuth = "http://127.0.0.1/auth/response/github"
-        let redirectAfterAuth = "http://127.0.0.1/register"
+        let endpointAfterAuth = "http://localhost:8181/auth/response/github"
+        let redirectAfterAuth = "http://localhost:8181/register"
         
-        let appid = "xxxxxxxxxxxxxxxxxxxxxx"
-        let secret = "xxxxxxxxxxxxxxxxxxxxxx"
+        let appid = "xxx"
+        let secret = "xxx"
     }
 #endif
 
@@ -97,9 +100,9 @@ struct STMPConfig{
     //stmp
     public static let url = "smtp://smtp.ym.163.com"
     
-    public static let username = "mubin@swiftfs.org"
+    public static let username = "xxxx"
     
-    public static let password = "a452359549"
+    public static let password = "xxxx"
 }
 
 

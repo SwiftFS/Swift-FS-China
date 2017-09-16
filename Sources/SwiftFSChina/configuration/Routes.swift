@@ -51,12 +51,19 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"get", "uri":"/index", "handler":Handlers.index])
     routes.append(["method":"get", "uri":"/share", "handler":Handlers.share])
     routes.append(["method":"get", "uri":"/ask", "handler":Handlers.ask])
-    routes.append(["method":"get", "uri":"/wiki", "handler":Handlers.wiki])
     routes.append(["method":"get", "uri":"/settings", "handler":Handlers.settings])
 	routes.append(["method":"get", "uri":"/about", "handler":Handlers.about])
 	routes.append(["method":"get", "uri":"/login", "handler":Handlers.login])
 	routes.append(["method":"get", "uri":"/register", "handler":Handlers.register])
     routes.append(["method":"get", "uri":"/notification/**", "handler":Notification.index])
+    
+    //wiki
+    routes.append(["method":"get", "uri":"/wiki/{path}", "handler":Wiki.index])
+    routes.append(["method":"get", "uri":"/wiki", "handler":Wiki.index])
+    routes.append(["method":"get", "uri":"/wiki/", "handler":Wiki.index])
+    //wiki-api
+    routes.append(["method":"post", "uri":"/wiki/new", "handler":Wiki.newWiki])
+    
     
     //user
     routes.append(["method":"get", "uri":"/user/{username}/index", "handler":User.index])
@@ -116,7 +123,7 @@ func mainRoutes() -> [[String: Any]] {
     //search
     routes.append(["method":"get", "uri":"search/", "handler":Search.query])
     
-    //eamail
+    //email
     routes.append(["method":"get", "uri":"verification/{secret}", "handler":EmailAuth.verification])
     routes.append(["method":"get", "uri":"email-verification", "handler":EmailAuth.email_verification])
     

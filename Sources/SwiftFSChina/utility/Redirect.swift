@@ -23,11 +23,8 @@ import PerfectSession
 extension HTTPResponse {
 	/// Provides a convenience method for redirects
 	public func sessionRedirect(path: String, session: PerfectSession = PerfectSession()) {
-
 		if !session.token.isEmpty  {
-			let driver = RedisSessions()
-			driver.save(session: session)
-			self.setHeader(.custom(name: "Authorization"), value: "Bearer \(session.token)")
+            self.request.session = session
 		}
 		self.status = .found
 		self.setHeader(.location, value: path)
