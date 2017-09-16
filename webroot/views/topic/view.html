@@ -297,8 +297,6 @@
         </div>
     </div>
 </script>
-
-
 {% include "footer.html" %}
 <script src="/assets/js/jquery.ui.widget.js"></script>
 <script src="/assets/js/jquery.fileupload.js"></script>
@@ -307,9 +305,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         APP.Topic.init("{{topic.id}}");
-        // var content = "{{data.topic.content}}" || ""
-        // var md = window.markdownit();
-        // var markdown = md.render(content);
+        hljs.initHighlightingOnLoad();    
     });
 </script>
 
