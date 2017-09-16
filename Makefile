@@ -1,7 +1,7 @@
 
 run:
-	@nohup ./.build/debug/PerfectChina
+	@nohup ./.build/debug/SwiftFSChina
 build:
 	@swift build
 debug:
-	@./.build/debug/PerfectChina
+	@./.build/debug/SwiftFSChina
