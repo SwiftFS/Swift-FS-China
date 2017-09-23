@@ -66,7 +66,7 @@ class Comments {
         return {
             req, res in
             do{
-                
+
                 let topic_id:Int = req.param(name: "topic_id")?.int ?? 0
                 let content = req.param(name: "content")
                 let mention_users = req.param(name: "mention_users")
@@ -77,6 +77,7 @@ class Comments {
                     res.completed()
                     return
                 }
+                
                 if (topic_id == 0) || (content == nil) || (content == "") {
                     try res.setBody(json: ["success":false,"msg":"参数不得为空"])
                     res.completed()

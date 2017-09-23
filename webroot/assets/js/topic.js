@@ -9,27 +9,7 @@
         },
  
         init: function (topic_id) {
-
-//        	//获取文章
-//        	$.ajax({
-//	            url : '/topic/' + topic_id + '/query',
-//	            type : 'get',
-//	            data: {},
-//	            dataType : 'json',
-//	            success : function(result) {
-//	                if(result.success){
-//	                	var tpl = $("#topic-body-tpl").html();
-//	                	result.data.topic.content = result.data.topic.content || "";
-//	                	result.data.topic.content = L.Common.md.render(result.data.topic.content);
-//
-//			            var html = juicer(tpl, result.data);
-//			            $("#topic-body").html(html).show();
-//			            $("#reply").show();
-//
-//			            var tpl2 = $("#ops-area-tpl").html();
-//			            var html2 = juicer(tpl2, result.data);
-//			            $("#ops-area").html(html2);
-//
+            _this.data.topic_id = topic_id
             _this.loadComments();
             _this.initEvents();
 
@@ -146,8 +126,8 @@
         			return;
         		}
 
-        		if(reply_content.length>2500){
-        			L.Common.showTipDialog("提示", "评论内容长度不得超过2500字符，当前字符数" + reply_content.length + ".");
+        		if(reply_content.length>250){
+        			L.Common.showTipDialog("提示", "评论内容长度不得超过250字符，当前字符数" + reply_content.length + ".");
         			return;
         		}
         		
@@ -365,29 +345,29 @@
 			            }
 			        });
         		}else if(op=="cancel_like"){
-        			L.Common.showTipDialog("提示", "已赞过的文章不允许取消赞.");
-        			// $.ajax({
-			        //     url : '/topic/cancel_like',
-			        //     type : 'post',
-			        //     data: {
-			        //         topic_id: topic_id
-			        //     },
-			        //     dataType : 'json',
-			        //     success : function(result) {
-			        //         if(result.success){
-			        //         	_self.attr("data-op", "like");
-			        //         	_self.removeClass("active");
-			        //         	$(".like-num-text").each(function(){
-			        //         		$(this).text(parseInt($(this).text())-1);
-			        //         	});
-			        //         }else{
-			        //             L.Common.showTipDialog("提示", result.msg);
-			        //         }
-			        //     },
-			        //     error : function() {
-			        //         L.Common.showTipDialog("提示", "发送请求失败.");
-			        //     }
-			        // });
+//        			L.Common.showTipDialog("提示", "已赞过的文章不允许取消赞.");
+        			 $.ajax({
+			             url : '/topic/cancel_like',
+			             type : 'post',
+			             data: {
+			                 topic_id: topic_id
+			             },
+			             dataType : 'json',
+			             success : function(result) {
+			                 if(result.success){
+			                 	_self.attr("data-op", "like");
+			                 	_self.removeClass("active");
+			                 	$(".like-num-text").each(function(){
+			                 		$(this).text(parseInt($(this).text())-1);
+			                 	});
+			                 }else{
+			                     L.Common.showTipDialog("提示", result.msg);
+			                 }
+			             },
+			             error : function() {
+			                 L.Common.showTipDialog("提示", "发送请求失败.");
+			             }
+			         });
         		}
         	});
         },

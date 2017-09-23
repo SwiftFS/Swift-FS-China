@@ -151,7 +151,7 @@ class User {
         }
     }
     
-    static func cancel_follow(data:[String:Any]) throws -> RequestHandler{
+    static func cancelFollow(data:[String:Any]) throws -> RequestHandler{
         return{
             req,res in
             do{
@@ -169,7 +169,7 @@ class User {
                 }
                 
                 let judge = try FollowServer.cancel_follow(id1: user_id, id2: to_id)
-                let relation = try get_relation(id1: user_id, id2: to_id)
+                let relation = try getRelation(id1: user_id, id2: to_id)
                 
                 let query_follows = try FollowServer.get_follows_count(user_id: to_id)
                 let count = query_follows[0].count
@@ -210,7 +210,7 @@ class User {
                 }
                 
                 let result =  try FollowServer.follow(id1: user_id, id2: to_id)
-                let relation = try get_relation(id1: user_id, id2: to_id)
+                let relation = try getRelation(id1: user_id, id2: to_id)
                 
                 let query_follows = try FollowServer.get_follows_count(user_id: to_id)
                 let count = query_follows[0].count
@@ -382,7 +382,7 @@ class User {
 
     }
     
-    static func get_relation(id1:Int,id2:Int) throws -> Int{
+    static func getRelation(id1:Int,id2:Int) throws -> Int{
         var reloation = 0
         var is_follow = false
         var is_fan = false
@@ -408,7 +408,7 @@ class User {
         return reloation
     }
     
-    static func like_topics(data: [String:Any]) throws -> RequestHandler {
+    static func likeTopics(data: [String:Any]) throws -> RequestHandler {
         return {
             req,res in
             do{
@@ -450,7 +450,7 @@ class User {
      
     }
     
-    static func hot_topics(data: [String:Any]) throws -> RequestHandler {
+    static func hotTopics(data: [String:Any]) throws -> RequestHandler {
         return {
             req,res in
             do{
@@ -535,11 +535,11 @@ class User {
                 
             if current_userId != 0 {
                     is_self = current_userId == userId
-                    relation = try User.get_relation(id1: current_userId, id2: userId)
+                    relation = try User.getRelation(id1: current_userId, id2: userId)
             }
                 
             let userJson = user.toJSON()!
-            Log.info(message: "\(userJson)", evenIdents: true)
+            
                                 
             res.render(template: "user/index"
                         ,context: ["is_self":is_self

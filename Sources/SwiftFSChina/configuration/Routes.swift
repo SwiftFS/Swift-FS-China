@@ -46,7 +46,7 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"get", "uri":"/auth/response/github", "handler":OAuth.authResponse])
 
     
-	// Handler for home page
+	//Handler for home page
 	routes.append(["method":"get", "uri":"/", "handler":Handlers.index])
     routes.append(["method":"get", "uri":"/index", "handler":Handlers.index])
     routes.append(["method":"get", "uri":"/share", "handler":Handlers.share])
@@ -67,14 +67,14 @@ func mainRoutes() -> [[String: Any]] {
     
     //user
     routes.append(["method":"get", "uri":"/user/{username}/index", "handler":User.index])
-    routes.append(["method":"get", "uri":"/user/{username}/hot_topics", "handler":User.hot_topics])
-    routes.append(["method":"get", "uri":"/user/{username}/like_topics", "handler":User.like_topics])
+    routes.append(["method":"get", "uri":"/user/{username}/hot_topics", "handler":User.hotTopics])
+    routes.append(["method":"get", "uri":"/user/{username}/like_topics", "handler":User.likeTopics])
     routes.append(["method":"get", "uri":"/user/{username}/topics", "handler":User.topics])
     routes.append(["method":"get", "uri":"/user/{username}/comments", "handler":User.comments])
     routes.append(["method":"get", "uri":"/user/{username}/collects", "handler":User.collects])
     routes.append(["method":"get", "uri":"/user/{username}/follows", "handler":User.follows])
     routes.append(["method":"post", "uri":"/user/follow", "handler":User.follow])
-    routes.append(["method":"post", "uri":"/user/cancel_follow", "handler":User.cancel_follow])
+    routes.append(["method":"post", "uri":"/user/cancel_follow", "handler":User.cancelFollow])
     routes.append(["method":"get", "uri":"/user/{username}/fans", "handler":User.fans])
     routes.append(["method":"post", "uri":"/user/edit", "handler":User.edit])
     routes.append(["method":"post", "uri":"/user/change_pwd", "handler":User.change_pwd])
@@ -90,18 +90,16 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"post", "uri":"topic/edit", "handler":Topic.edit])
     routes.append(["method":"get", "uri":"topic/{topic_id}/query", "handler":Topic.getQuery])
     
-    routes.append(["method":"get", "uri":"topic/{topic_id}/edit", "handler":Topic.edit_topic])
-    routes.append(["method":"get", "uri":"topic/{topic_id}/delete", "handler":Topic.delete_topic])
+    routes.append(["method":"get", "uri":"topic/{topic_id}/edit", "handler":Topic.editTopic])
+    routes.append(["method":"get", "uri":"topic/{topic_id}/delete", "handler":Topic.deleteTopic])
     routes.append(["method":"post", "uri":"topic/collect", "handler":Topic.collect])
     routes.append(["method":"post", "uri":"topic/like", "handler":Topic.like])
-    routes.append(["method":"get", "uri":"topic/cancel_like", "handler":Topic.collect])
-    routes.append(["method":"post", "uri":"topic/cancel_collect", "handler":Topic.cancel_collect])
+    routes.append(["method":"get", "uri":"topic/cancel_like", "handler":Topic.cancleLike])
+    routes.append(["method":"post", "uri":"topic/cancel_collect", "handler":Topic.cancelCollect])
     
-    //comments --   获取所有评论
+    //comments
     routes.append(["method":"get", "uri":"comments/all", "handler":Comments.getComments])
-    //comment  --   新建评论
     routes.append(["method":"post", "uri":"comment/new", "handler":Comments.newComment])
-    //comment  --   删除评论
     routes.append(["method":"get", "uri":"comment/{comment_id}/delete", "handler":Comments.delete])
     
     //auth
@@ -116,19 +114,18 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"post", "uri":"/upload/file", "handler":Upload.file])
     
     //notification
-    routes.append(["method":"post", "uri":"notification/delete_all", "handler":Notification.delete_all])
+    routes.append(["method":"post", "uri":"notification/delete_all", "handler":Notification.deleteAll])
     routes.append(["method":"post", "uri":"notification/mark", "handler":Notification.mark])
     routes.append(["method":"post", "uri":"notification/{id}/delete", "handler":Notification.delete])
     
     //search
-    routes.append(["method":"get", "uri":"search/", "handler":Search.query])
+    routes.append(["method":"get", "uri":"search/*", "handler":Search.query])
     
     //email
     routes.append(["method":"get", "uri":"verification/{secret}", "handler":EmailAuth.verification])
-    routes.append(["method":"get", "uri":"email-verification", "handler":EmailAuth.email_verification])
+    routes.append(["method":"get", "uri":"email-verification", "handler":EmailAuth.emailVerification])
     
-    routes.append(["method":"post", "uri":"send-verification-mail", "handler":EmailAuth.send_verification_mail])
-    
+    routes.append(["method":"post", "uri":"send-verification-mail", "handler":EmailAuth.sendVerificationMail])
     
     
 	return routes

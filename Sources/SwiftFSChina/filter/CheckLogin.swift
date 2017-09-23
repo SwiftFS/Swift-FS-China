@@ -43,7 +43,7 @@ struct checklogin:HTTPRequestFilter {
             return
         }
 
-
+        
         let requestPath = request.path
         var in_white_list = false
         var islogin = false     //已经登录

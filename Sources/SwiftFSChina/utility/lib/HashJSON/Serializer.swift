@@ -71,10 +71,9 @@ extension _PropertiesMappable {
                         dateFormatter.locale = Locale.current //设置时区，时间为当前系统时间
                         //输出样式
                         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        if (value as? Data) != nil{
-                            let stringDate = dateFormatter.string(from: value as! Date)
-                            dict[key] = "\(stringDate)"
-                        }
+                        
+                        let stringDate = dateFormatter.string(from: value as! Date)
+                        dict[key] = "\(stringDate)"
                     }else{
                         dict[key] = result
                     }

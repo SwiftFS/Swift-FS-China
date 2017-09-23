@@ -11,6 +11,13 @@ import MySQL
 
 struct LikeServer {
     
+    public static func cancleLike(user_id:Int,topic_id:Int) throws -> Bool{
+        
+        return try pool.execute{
+            try $0.query("delete from `like` where user_id = ? and topic_id = ?",[user_id,topic_id])
+            }.affectedRows > 0
+    }
+    
     public static func like(user_id:Int,topic_id:Int) throws -> Bool{
    
         return try pool.execute{

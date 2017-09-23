@@ -95,6 +95,7 @@ public class OAuth: OAuth2 {
     
     /// GitHub-specific exchange function
     public func exchange(request: HTTPRequest, state: String) throws -> OAuth2Token {
+        
         return try exchange(request: request, state: state, redirectURL: "\(GitHubConfig.endpointAfterAuth)?session=\((request.session?.token)!)")
     }
     
@@ -113,18 +114,19 @@ public class OAuth: OAuth2 {
             request, response in
             let fb = OAuth(clientID: GitHubConfig.appid, clientSecret: GitHubConfig.secret)
             do {
+                
                 guard let state = request.session?.data["csrf"] else {
                     throw OAuth2Error(code: .unsupportedResponseType)
                 }
+                
                 let t = try fb.exchange(request: request, state: state as! String)
+                
                 request.session?.data["accessToken"] = t.accessToken
                 request.session?.data["refreshToken"] = t.refreshToken
                 
                 let userdata = fb.getUserData(t.accessToken)
                 
                 request.session?.data["loginType"] = "github"
-                
-                
                 
                 
                 guard let id = userdata["id"] as? String else{
@@ -145,7 +147,7 @@ public class OAuth: OAuth2 {
                 if let i = userdata["id"] {
                     request.session?.data["id"] = i as! String
                 }
-                //防空处理
+                
                 if let i:String = userdata["name"] as? String {
                     if i == "JSONConvertibleNull()" {
                         request.session?.data["name"] = ""
@@ -153,7 +155,7 @@ public class OAuth: OAuth2 {
                         request.session?.data["name"] = i
                     }
                 }
-                //防空处理
+                
                 if let i:String = userdata["login"] as? String {
                     if i == "JSONConvertibleNull()" {
                         request.session?.data["login"] = ""
@@ -168,19 +170,17 @@ public class OAuth: OAuth2 {
                 
                 let user = try UserServer.query_by_github_id(id: id.int!)
                 
-                
-                //没有注册
                 guard user != nil else{
                     response.redirect(path: GitHubConfig.redirectAfterAuth, sessionid: (request.session?.token)!)
                     return
                 }
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = Locale.current //设置时区，时间为当前系统时间
-                //输出样式
+                
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let ct = user!.create_time
                 let stringDate = dateFormatter.string(from:ct!)
-                //配置sesssion
+                
                 let sessionDic:[String:Any] = ["username":user!.username,
                                                "userid":user!.id.id.id,
                                                "email":user!.email,

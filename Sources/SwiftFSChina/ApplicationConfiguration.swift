@@ -54,19 +54,19 @@ let whitelist = [
 
 #if os(Linux)
     struct ApplicationConfiguration {
-        let baseURL =  "http://swiftfs.org"
+        let baseURL =  "https://swiftfs.org"
         let baseDomain = "localhost"
         let mysqldbname  = "blog"
         let mysqlhost = "127.0.0.1"
         let mysqlport = 3306
-        let mysqlpwd = "123456"
+        let mysqlpwd = ""
         let mysqluser =  "root"
         let httpport =  8181
-        let pwd_secret = "ffffffffffffffff" //-- 用于存储密码的盐, 16位数
+        let pwd_secret = "xxxxxxxxxxxxxxxx" //-- 用于存储密码的盐, 16位数
         
         //重定向
-        let endpointAfterAuth = "swiftfs.org/auth/response/github"
-        let redirectAfterAuth = "swiftfs.org/register"
+        let endpointAfterAuth = "https://www.swiftfs.org/auth/response/github"
+        let redirectAfterAuth = "https://www.swiftfs.org/register"
         
         let appid = "xxx"
         let secret = "xxx"
@@ -93,16 +93,14 @@ let whitelist = [
     }
 #endif
 
-//图片地址
-let picurl = ""
 
 struct STMPConfig{
     //stmp
     public static let url = "smtp://smtp.ym.163.com"
     
-    public static let username = "xxxx"
+    public static let username = "mubin@swiftfs.org"
     
-    public static let password = "xxxx"
+    public static let password = "xxxxxx"
 }
 
 

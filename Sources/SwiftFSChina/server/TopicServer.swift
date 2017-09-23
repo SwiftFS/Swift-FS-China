@@ -209,7 +209,7 @@ struct TopicServer {
                 }
             }
         }catch{
-            Log.info(message: "\(error)", evenIdents: true)
+            Log.error(message: "\(error)")
             return nil
         }
         return row

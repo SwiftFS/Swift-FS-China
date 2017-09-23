@@ -13,11 +13,10 @@ import PerfectHTTP
 
 class EmailAuth{
     
-    static func send_verification_mail(data: [String:Any]) throws -> RequestHandler {
+    static func sendVerificationMail(data: [String:Any]) throws -> RequestHandler {
         return {
             req,res in
-            do{
-                
+            
             if let user:[String:Any] = req.session?.data["user"] as? [String:Any] {
                 let username:String? = user["username"] as? String
                 let email:String? = user["email"] as? String
@@ -28,13 +27,10 @@ class EmailAuth{
                 EmailAuth.sentAuth(send_name: username!, send_email: email!)
                 res.redirect(path: "/user/\(username!)/index")
             }
-            }catch{
-                Log.error(message: "\(error)")
-            }
         }
     }
 
-    static func email_verification(data: [String:Any]) throws -> RequestHandler {
+    static func emailVerification(data: [String:Any]) throws -> RequestHandler {
         return {
             req,res in
             

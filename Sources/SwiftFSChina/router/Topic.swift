@@ -58,7 +58,7 @@ class Topic {
     }
 
     
-    static func edit_topic(data: [String:Any]) throws -> RequestHandler{
+    static func editTopic(data: [String:Any]) throws -> RequestHandler{
         return {
             req,res in
             do{
@@ -89,7 +89,7 @@ class Topic {
     }
 
     
-    static func delete_topic(data: [String:Any]) throws -> RequestHandler{
+    static func deleteTopic(data: [String:Any]) throws -> RequestHandler{
         return {
             req,res in
             do{
@@ -122,7 +122,7 @@ class Topic {
     }
 
     
-    static func cancel_collect(data: [String:Any]) throws -> RequestHandler{
+    static func cancelCollect(data: [String:Any]) throws -> RequestHandler{
         return {
             req,res in
             do{
@@ -175,6 +175,31 @@ class Topic {
         }
     }
     
+    static func cancleLike(data: [String:Any]) throws -> RequestHandler {
+        return  {
+            req,res in
+            do {
+                let user:[String:Any]? = req.session?.data["user"] as? [String : Any]
+                guard let user_id = user?["userid"] as? Int else {
+                    try res.setBody(json: ["success":false,"msg":"操作之前请先登录"])
+                    res.completed()
+                    return
+                }
+                let topic_id = req.param(name: "topic_id")?.int ?? 0
+                let judge = try LikeServer.cancleLike(user_id: user_id, topic_id: topic_id)
+                if judge {
+                    try res.setBody(json: ["success":true,"msg":"like successfully."])
+                    res.completed()
+                }else{
+                    try res.setBody(json: ["success":false,"msg":"login before update."])
+                    res.completed()
+                }
+            }catch{
+                Log.error(message: "\(error)")
+            }
+        }
+    }
+
     static func like(data: [String:Any]) throws -> RequestHandler {
         return  {
             req,res in
@@ -215,9 +240,7 @@ class Topic {
     
     static func new(data: [String:Any]) throws -> RequestHandler {
         return {
-            req,res in
-//            Utils.days_after_registry(req: req)
-            
+            req,res in            
             res.render(template: "topic/new")
         }
     }

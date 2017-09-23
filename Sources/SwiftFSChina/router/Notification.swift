@@ -106,7 +106,7 @@ struct Notification:RequestLogin{
         }
     }
     
-    public static func delete_all(data: [String:Any]) throws -> RequestHandler {
+    public static func deleteAll(data: [String:Any]) throws -> RequestHandler {
         return  {
             req,res in
             do{

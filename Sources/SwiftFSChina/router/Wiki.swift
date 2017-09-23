@@ -35,7 +35,7 @@ class Wiki{
                 }
                 
             }catch{
-                Log.info(message: "\(error)")
+                Log.error(message: "\(error)")
             }
         
             

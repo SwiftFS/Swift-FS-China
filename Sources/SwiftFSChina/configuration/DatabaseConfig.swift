@@ -46,7 +46,7 @@ struct Options:ConnectionOption {
 }
 
 
-func config() {
+func connectionDatabase() {
     
     
 //应用启动设置

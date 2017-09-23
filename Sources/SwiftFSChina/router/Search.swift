@@ -15,6 +15,7 @@ class Search {
     static func query(data: [String:Any]) throws -> RequestHandler {
         return {
             request, response in
+            
             do{
                 guard  let q = request.param(name: "q") else {
                     response.render(template: "search")

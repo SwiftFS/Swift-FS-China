@@ -24,12 +24,11 @@ import PerfectRequestLogger
 import PerfectLogger
 
 import PerfectSession
-import PerfectRedis
 
 
 
-//配置 mysql 端口
-config()
+//连接数据库
+connectionDatabase()
 
 let server = HTTPServer()
 
@@ -38,22 +37,15 @@ let httplogger = RequestLogger()
 RequestLogFile.location = "./webLog.log"
 
 
-//session 设置
-RedisSessionConnector.host = "127.0.0.1"
-RedisSessionConnector.password = ""
-RedisSessionConnector.port = redisDefaultPort
-
-//SessionConfig.cookieDomain = "127.0.0.1"
-//// 会话名称
 // 这个名称也会成为浏览器cookie的名称
-SessionConfig.name = "PerfectSession"
+SessionConfig.name = "SwiftFSChina"
 SessionConfig.idle = 3600
 SessionConfig.IPAddressLock = true
 SessionConfig.userAgentLock = true
 SessionConfig.CSRF.checkState = true
 
 let configuration = ApplicationConfiguration()
-// Configure Server
+
 var confData: [String:[[String:Any]]] = [
 	"servers": [
 		[
@@ -74,15 +66,11 @@ confData["servers"]?[0]["routes"] = mainRoutes()
 
 
 do {
-    // Launch the servers based on the configuration data.
     try HTTPServer.launch(configurationData: confData)
     try server.start()
 
 } catch {
-    
-    Log.info(message: "连接数据库成功")
-    //    if same add port addone
-    // fatal error launching one of the servers
+    Log.error(message: "连接数据库成功")
 }
 
 

@@ -12,28 +12,7 @@ import PerfectLib
 
 class Utils {
     
-    class func days_after_registry(req:HTTPRequest) {
-        _ = 0
-        _ = 0
-        
-        if req.session != nil {
-            let user:[String:Any] = req.session?.data["user"] as! [String : Any]
-            let create_time = user["create_time"] as? Date
-            if create_time != nil {
-                let now = Utils.now()
-                let dateComponentsFormatter = DateComponentsFormatter()
-                dateComponentsFormatter.allowedUnits = .day
-                
-                let autoFormattedDifference = dateComponentsFormatter.string(from: create_time!, to: now)
-                
-                Log.info(message: "\(String(describing: autoFormattedDifference!.int))", evenIdents: true)
-                
-//                a = now.timeIntervalSince(create_time!)
-                
-            }
-        }
-    }
-    
+ 
     
     class func now() -> Date{
         
