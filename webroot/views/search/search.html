@@ -3,14 +3,13 @@
 <head>
   <title>SwfitFS China社区  &raquo; 登录</title>
   {% include "meta.html" %}
-   <style> .highlight{background-color: #FFFF88;} </style>  
+   <style> .highlight{color: #e07b7a;} </style>
+   <link rel="stylesheet" media="screen" href="/assets/css/search.css"/>
 </head>
 <body data-controller-name="sessions">
-
 {% include "header.html" %}
-
 <div id="main" class="main-container container">
-    <div class="panel panel-default">
+<div class="panel panel-default">
   <div class="panel-heading clearfix">
     关于 {{q}} 的搜索结果, 共 {{total_count}} 条
   </div>
@@ -26,11 +25,9 @@
     {% endfor %} 
   </div>
   <div class="panel-footer clearfix">
-    
   </div>
 </div>
 </div>
-
 </div>
 
 {% include "footer.html" %}

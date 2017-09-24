@@ -616,7 +616,7 @@ html.turbolinks-progress-bar::before {
     margin-left: 5px;
     margin-right: 0px;
 }
-.avatar .uface, .avatar .media-object {
+.avatar .uface {
     border-radius: 3px;
 }
 .avatar-16 {

@@ -1,12 +1,10 @@
 <div class="result">
 <h2 class="title">
-    <a href="{{ $topic->link() }}">{{ topic.title }}</a>
+    <a href="/topic/{{topic.id}}/view">{{ topic.title }}</a>
     <small>by</small>
-    <a href="{{ route('users.show', [$topic->user_id]) }}" title="{{ $topic->user->name }}">
-        <img class="avatar avatar-small" alt="{{ $topic->user->name }}" src="{{ $topic->user->present()->gravatar }}"/>
-        <small>{{ topic.username }}</small>
+    <a href="/user/{{topic.user_name}}/index" title="{{ topic.user_name }}">
+        <small>{{ topic.user_name }}</small>
     </a>
-
 </h2>
 <div class="info">
   <span class="url">
