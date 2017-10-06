@@ -14,15 +14,14 @@
 
 
 ### 运行环境
-* swift 3.1
-* ubuntu 16.04
+* Swift 4
 * Mysql 5.76+ (最新版即可)
 
 ### 安装
 #### 第一部分 
 ##### 在mac
-1. 需要安装Xcode
-2. swift >= 3.0
+1. 需要安装Xcode9
+2. Swift 4.0+
 ###### 在linux
 1. 需要安装语言环境
 2. 可参考 [perfect](https://www.perfect.org/docs/) 或 [vapor](https://docs.vapor.codes/2.0/getting-started/install-on-ubuntu/) 官网
