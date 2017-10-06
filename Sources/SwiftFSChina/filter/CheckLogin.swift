@@ -48,7 +48,8 @@ struct checklogin:HTTPRequestFilter {
         var in_white_list = false
         var islogin = false     //已经登录
         
-        if requestPath == "//" {
+        
+        if requestPath == "/" || requestPath == "//"{
             in_white_list = true
         }else{
             for address in whitelist{

@@ -12,17 +12,9 @@ import PerfectLib
 
 
 
-extension ArticleEntity:HandyJSON{
-    
-    
-    init() {
-        self.init(id: 0, title: "", content: "", user_id: 0, create_time: Date(), update_time: Date(), user_name: "", like_num: 0, collect_num: 0, reply_num: 0, follow: 0, view_num: 0, last_reply_id: 0, last_reply_name: "", last_reply_time: Date(), catagory_id: 0, is_good: 0, category_name: "", avatar: "")
-    }
-}
 
 
-
-struct ArticleEntity: QueryRowResultType, QueryParameterDictionaryType {
+struct ArticleEntity: QueryRowResultType, QueryParameterDictionaryType,Codable {
     
     let id: Int
     let title: String

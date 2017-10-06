@@ -67,7 +67,7 @@ struct UserServer {
     
     public static func new(username:String,password:String,avatar:String,email:String,github_id:Int,github_name:String) throws -> Int?{
         
-       let user = UserEntity(id: .noID, username: username, password: password, avatar: avatar, create_time: nil, city: "", website: "", company: "", sign: "", github: "", github_name: github_name, is_verify: 0, github_id: github_id, email: email, email_public: 0, is_admin: 0)
+       let user = UserEntity(id: 0, username: username, password: password, avatar: avatar, create_time: nil, city: "", website: "", company: "", sign: "", github: "", github_name: github_name, is_verify: 0, github_id: github_id, email: email, email_public: 0, is_admin: 0)
         let status = try pool.execute{
             try $0.query("INSERT INTO user SET ?",[user])
         }

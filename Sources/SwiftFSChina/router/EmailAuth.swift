@@ -71,7 +71,7 @@ class EmailAuth{
                     return
                 }
                 
-                 _ = try UserServer.update_verify(id: user.id.id.id)
+                 _ = try UserServer.update_verify(id: user.id)
                 
                 req.session?.data["is_verify"] = 1
                 res.sessionRedirect(path: "/index", session: req.session!)

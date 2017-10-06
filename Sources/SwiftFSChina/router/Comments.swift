@@ -11,6 +11,7 @@ import PerfectHTTP
 import PerfectLib
 
 
+
 class Comments {
     
     static func delete(data: [String:Any]) throws -> RequestHandler {
@@ -61,6 +62,8 @@ class Comments {
             }
         }
     }
+    
+    
     
     static func newComment(data: [String:Any]) throws -> RequestHandler {
         return {
@@ -138,7 +141,16 @@ class Comments {
                     }
                 }
                 try NotificationServer.comment_notify(from_id: Int(user_id), content: "", topic_id: topic_id, comment_id: new_comment_id)
-                try res.setBody(json: ["success":true,"msg":"保存评论成功","data":["c":new_comment!.toJSON()]])
+                
+                let encoded = try? encoder.encode(new_comment)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [String:Any] {
+                            try res.setBody(json: ["success":true,"msg":"保存评论成功","data":["c":decoded]])
+                        }
+                    }
+                }
+                
                 res.completed()
                 
             }catch{
@@ -166,16 +178,25 @@ class Comments {
             let user:[String:Any]? = req.session?.data["user"] as? [String : Any]
             
             let user_id:Int = user?["userid"] as? Int ?? 0
-            
-            let data: [String : Any] = ["totalCount":total_count,
-                                        "totalPage":total_page,
-                                        "currentPage":page_no,
-                                        "comments":comments.toJSON(),
-                                        "base":(page_no - 1) * page_size,
-                                        "current_user_id":user_id]
                 
-            try res.setBody(json: ["success":true,"data":data])
-                res.completed()
+            
+            let encoded = try? encoder.encode(comments)
+            if encoded != nil {
+                if let json = encodeToString(data: encoded!){
+                    if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                        let data: [String : Any] = ["totalCount":total_count,
+                                                    "totalPage":total_page,
+                                                    "currentPage":page_no,
+                                                    "comments":decoded,
+                                                    "base":(page_no - 1) * page_size,
+                                                    "current_user_id":user_id]
+                        
+                        try res.setBody(json: ["success":true,"data":data])
+                    }
+                }
+            }
+            
+            res.completed()
             }catch{
                 
                 Log.error(message: "\(error)")

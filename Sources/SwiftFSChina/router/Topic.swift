@@ -79,8 +79,17 @@ class Topic {
                     return
                 }
                 
-                let rowjson:[String:Any]! = row[0].toJSON()
-                res.render(template: "topic/edit", context: ["topic":rowjson])
+                
+                let encoded = try? encoder.encode(row[0])
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [String:Any] {
+                            res.render(template: "topic/edit", context: ["topic":decoded])
+                        }
+                    }
+                }
+                
+                
                 
             }catch{
                 Log.error(message: "\(error)")
@@ -325,15 +334,22 @@ class Topic {
                 let topic = row[0]
                 let is_self = Topic.isself(req: req, uid:topic.user_id)
                 
-                var topicDic = topic.toJSON()!
                 
                 guard let html = topic.content.markdownToHTML else {
                     
                     return
                 }
                 
-                topicDic["content"] = html
-                res.render(template: "topic/view", context: ["topic":["id":topic_id!],"data":["topic":topicDic,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
+                let encoded = try? encoder.encode(topic)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if var decoded = try json.jsonDecode() as? [String:Any] {
+                            decoded["content"] = html
+                            res.render(template: "topic/view", context: ["topic":["id":topic_id!],"data":["topic":decoded,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
+                        }
+                    }
+                }
+                
                 
             }catch{
                 Log.error(message: "\(error)")
@@ -378,10 +394,15 @@ class Topic {
                 let topic = row[0]
                 let is_self = Topic.isself(req: req, uid:topic.user_id)
                 
-                let topicArr = topic.toJSON()!
-                
-                
-                try res.setBody(json: ["success":true,"data":["topic":topicArr,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
+        
+                let encoded = try? encoder.encode(topic)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,"data":["topic":decoded,"is_self":is_self,"meta":["is_collect":is_collect,"is_like":is_like]]])
+                        }
+                    }
+                }
                 
                 res.completed()
                 

@@ -10,10 +10,15 @@ import Foundation
 import PerfectHTTP
 import PerfectLib
 
+let encoder = JSONEncoder()
+
+
+
+func encodeToString(data:Data) -> String? {
+    return String.init(data: data, encoding: .utf8)
+}
+
 class Utils {
-    
- 
-    
     class func now() -> Date{
         
         return  Date()

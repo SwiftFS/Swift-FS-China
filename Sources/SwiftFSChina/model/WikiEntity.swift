@@ -10,17 +10,8 @@ import Foundation
 import MySQL
 import PerfectLib
 
-extension WikiEntity:HandyJSON{
-    
-    init() {
-        
-        self.init(id: 0, title: "", content: "", user_id: 0, create_time: Date(), update_time: nil, user_name: "", like_num: 0, reply_num: 0, view_num: 0, last_reply_id: 0, last_reply_name: "", last_reply_time: Date(),is_recommend: 0, url_path: "")
-    }
-}
 
-
-
-struct WikiEntity: QueryRowResultType, QueryParameterDictionaryType {
+struct WikiEntity: QueryRowResultType, QueryParameterDictionaryType,Codable {
     
     let id: Int
     let title: String

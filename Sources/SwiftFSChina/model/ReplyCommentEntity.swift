@@ -10,14 +10,8 @@ import Foundation
 import MySQL
 
 
-extension ReplyCommentEntity:HandyJSON{
-    init() {
-        self.init(topic_id: 0, topic_title: "", comment_content: "", comment_id: 0, comment_time: Date())
-    }
-}
-
 // --评论Model
-struct ReplyCommentEntity: QueryRowResultType, QueryParameterDictionaryType {
+struct ReplyCommentEntity: QueryRowResultType, QueryParameterDictionaryType,Codable {
     
     let topic_id:Int
     let topic_title:String

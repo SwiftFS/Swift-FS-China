@@ -50,7 +50,14 @@ class Handlers {
             
             do{
                 let user = try UserServer.query_by_id(id: "\(userId)".int!)
-                response.render(template: "user/settings", context: ["user":user!.toJSON()!])
+                let encoded = try? encoder.encode(user)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [String:Any] {
+                            response.render(template: "user/settings", context: ["user":decoded])
+                        }
+                    }
+                }
             }catch{
                 response.render(template: "error", context: ["errMsg":"error to find user."])
             }

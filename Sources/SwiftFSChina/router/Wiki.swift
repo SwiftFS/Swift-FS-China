@@ -45,8 +45,14 @@ class Wiki{
     static func homePage(req:HTTPRequest,res:HTTPResponse) throws{
         
         let wikis = try WikiServer.quert_recommends()
-        let wikisArr = wikis.toJSON()
-        res.render(template: "wiki/wiki",context: ["recommends":wikisArr])
+        let encoded = try? encoder.encode(wikis)
+        if encoded != nil {
+            if let json = encodeToString(data: encoded!){
+                if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                    res.render(template: "wiki/wiki",context: ["recommends":decoded])
+                }
+            }
+        }
         
     }
     

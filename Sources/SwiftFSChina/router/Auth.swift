@@ -98,7 +98,7 @@ class Auth {
                 
                 //配置sesssion
                 let sessionDic:[String:Any] = ["username":user!.username,
-                                               "userid":user!.id.id.id,
+                                               "userid":user!.id,
                                                "userpic":user!.avatar,
                                                "create_time":stringDate]
                 req.session!.data.updateValue(sessionDic, forKey: "user")
@@ -234,8 +234,23 @@ class Auth {
                 //发送邮箱
                 EmailAuth.sentAuth(send_name: new_user.username, send_email: new_user.email)
                 try res.setBody(json: ["success": true,"msg":"注册成功"])
-                res.completed()
                 
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale.current //设置时区，时间为当前系统时间
+                //输出样式
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let ct = new_user.create_time
+                let stringDate = dateFormatter.string(from:ct!)
+                
+                //配置sesssion
+                let sessionDic:[String:Any] = ["username":new_user.username,
+                                               "userid":new_user.id,
+                                               "userpic":new_user.avatar,
+                                               "create_time":stringDate]
+                req.session!.data.updateValue(sessionDic, forKey: "user")
+                
+                res.completed()
             }catch{
                 Log.error(message: "\(error)")
             }

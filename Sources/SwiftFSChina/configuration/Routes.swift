@@ -77,7 +77,7 @@ func mainRoutes() -> [[String: Any]] {
     routes.append(["method":"post", "uri":"/user/cancel_follow", "handler":User.cancelFollow])
     routes.append(["method":"get", "uri":"/user/{username}/fans", "handler":User.fans])
     routes.append(["method":"post", "uri":"/user/edit", "handler":User.edit])
-    routes.append(["method":"post", "uri":"/user/change_pwd", "handler":User.change_pwd])
+    routes.append(["method":"post", "uri":"/user/change_pwd", "handler":User.changePwd])
     
     
     //notification

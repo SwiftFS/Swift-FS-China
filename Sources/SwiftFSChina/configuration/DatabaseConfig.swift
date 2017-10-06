@@ -45,9 +45,12 @@ struct Options:ConnectionOption {
     var encoding: Connection.Encoding
 }
 
-
 func connectionDatabase() {
-    
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current //设置时区，时间为当前系统时间
+        //输出样式
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
     
 //应用启动设置
         let dic = ApplicationConfiguration()

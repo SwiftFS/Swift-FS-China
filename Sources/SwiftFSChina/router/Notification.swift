@@ -166,7 +166,15 @@ struct Notification:RequestLogin{
                 
                 let notifications = try NotificationServer.get_all(user_id: user_id, n_type: n_type!, page_no: page_no!, page_size: page_size)
                 
-                try res.setBody(json: ["success":true,"data":["totalCount":total_cout,"totalPage":total_page,"currentPage":page_no!,"notifications":notifications.toJSON()]])
+                let encoded = try? encoder.encode(notifications)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,"data":["totalCount":total_cout,"totalPage":total_page,"currentPage":page_no!,"notifications":decoded]])
+                        }
+                    }
+                }
+                
                 res.completed()
             }catch{
                 Log.error(message: "\(error)", evenIdents: true)

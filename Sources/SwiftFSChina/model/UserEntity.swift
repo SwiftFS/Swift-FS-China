@@ -10,14 +10,6 @@ import Foundation
 import MySQL
 
 
-extension UserEntity:HandyJSON {
-    init() {
-        
-        
-        self.init(id: AutoincrementID.noID, username: "", password: "", avatar: "", create_time: nil, city: "", website: "", company: "", sign: "", github: "", github_name: "", is_verify: 0, github_id: nil, email: "", email_public: 0, is_admin: 0)
-    }
-}
-
 struct UserID: IDType {
     let id: Int
     init(_ id: Int) {
@@ -25,8 +17,8 @@ struct UserID: IDType {
     }
 }
 
-struct UserEntity: QueryRowResultType, QueryParameterDictionaryType {
-    let id: AutoincrementID<UserID>     //自增
+struct UserEntity: QueryRowResultType, QueryParameterDictionaryType,Codable{
+    let id: Int
     let username: String
     let password: String
     let avatar: String

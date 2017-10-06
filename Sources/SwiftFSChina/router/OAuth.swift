@@ -182,7 +182,7 @@ public class OAuth: OAuth2 {
                 let stringDate = dateFormatter.string(from:ct!)
                 
                 let sessionDic:[String:Any] = ["username":user!.username,
-                                               "userid":user!.id.id.id,
+                                               "userid":user!.id,
                                                "email":user!.email,
                                                "is_verify":user!.is_verify,
                                                "userpic":user!.avatar,

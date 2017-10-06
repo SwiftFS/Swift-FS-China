@@ -4,7 +4,7 @@ import PerfectLib
 
 class User {
     
-    static func change_pwd(data:[String:Any]) throws -> RequestHandler{
+    static func changePwd(data:[String:Any]) throws -> RequestHandler{
         return {
             req,res in
             do{
@@ -130,18 +130,25 @@ class User {
                     res.completed()
                     return
                 }
-                let userid = user!.id.id.id
+                let userid = user!.id
                 let page_no:Int = req.param(name: "page_no")?.int ?? 0
                 let page_size = 20
                 let total_count = try CommentServer.get_total_count_of_user(user_id: userid)
                 let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
 
                 let users = try FollowServer.get_fans_of_user(user_id: userid, page_no: page_no, page_size: page_size)
-                let usersArr = users.toJSON() as! [[String:Any]]
                 
-                try res.setBody(json: ["success":true,
-                                       "data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"users":usersArr]])
                 
+                let encoded = try? encoder.encode(users)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,
+                                                   "data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"users":decoded]])
+                        }
+                    }
+                }
+                            
                 res.completed()
 
             
@@ -253,16 +260,23 @@ class User {
                 return
             }
                 
-            let userid = user!.id.id.id
+            let userid = user!.id
             let page_no:Int = req.param(name: "page_no")?.int ?? 0
             let page_size = 20
             let total_count = try CommentServer.get_total_count_of_user(user_id: userid)
             let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
             let users = try FollowServer.get_follows_of_user(user_id: userid, page_no: page_no, page_size: page_size)
             
-            let usersArr = users.toJSON() as! [[String:Any]]
-            try res.setBody(json: ["success":true,
-                                      "data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"users":usersArr]])
+            
+            let encoded = try? encoder.encode(users)
+            if encoded != nil {
+                if let json = encodeToString(data: encoded!){
+                    if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                        try res.setBody(json: ["success":true,
+                                               "data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"users":decoded]])
+                    }
+                }
+            }
                 
             res.completed()
                 
@@ -291,16 +305,24 @@ class User {
                     return
                 }
                 
-                let userid = user!.id.id.id
+                let userid = user!.id
                 let page_no:Int = req.param(name: "page_no")?.int ?? 0
                 let page_size = 20
                 let total_count = try CommentServer.get_total_count_of_user(user_id: userid)
                 let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
                 let topics = try CollectServer.get_all_of_user(user_id: userid, page_no: page_no, page_size: page_size)
                 
-                let topicsArr = topics.toJSON() as! [[String:Any]]
-                let data = ["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":topicsArr] as [String : Any]
-                try res.setBody(json: ["success":true,"data":data])
+                
+                let encoded = try? encoder.encode(topics)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            let data = ["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":decoded] as [String : Any]
+                            try res.setBody(json: ["success":true,"data":data])
+                    }
+                    }
+                }
+                
                 res.completed()
             
             }catch{
@@ -325,17 +347,23 @@ class User {
                     res.completed()
                     return
                 }
-                let userid = user!.id.id.id
+                let userid = user!.id
                 let page_no:Int = req.param(name: "page_no")?.int ?? 0
                 let page_size = 20
                 let total_count = try CommentServer.get_total_count_of_user(user_id: userid)
                 let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
                 let comments =  try CommentServer.get_all_of_user(user_id: userid, page_no: page_no, page_size: page_size)
                 let is_self = isself(req: req, uid: userid)
-                let commentsArr = comments.toJSON() as! [[String:Any]]
-
                 
-                try res.setBody(json: ["success":true,"data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"comments":commentsArr,"is_self":is_self]])
+                
+                let encoded = try? encoder.encode(comments)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,"data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"comments":decoded,"is_self":is_self]])
+                        }
+                    }
+                }
                 res.completed()
             }catch{
                 Log.error(message: "\(error)")
@@ -361,7 +389,7 @@ class User {
                     res.completed()
                     return
                 }
-                let userid = user!.id.id.id
+                let userid = user!.id
                 let page_no = req.param(name: "page_no")?.int ?? 0
                 let page_size = 20
                 
@@ -371,9 +399,15 @@ class User {
                 
                 let is_self = isself(req: req, uid: userid)
 
-                let topicArr = topics.toJSON() as! [[String:Any]]
+                let encoded = try? encoder.encode(topics)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,"data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":decoded,"is_self":is_self]])
+                        }
+                    }
+                }
 
-                try res.setBody(json: ["success":true,"data":["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":topicArr,"is_self":is_self]])
                 res.completed()
             }catch{
                 Log.error(message: "\(error)")
@@ -427,21 +461,26 @@ class User {
                 }
                 let page_no = req.param(name: "page_no")
                 let page_size = 20
-                let userid = user!.id.id.id
+                let userid = user!.id
                 let total_count = try TopicServer.get_total_count_of_user(user_id: userid)
                 let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
                 let topics = try TopicServer.get_all_of_user(user_id: userid, page_no: 1, page_size: page_size)
                 let is_self = User.isself(req: req, uid: userid)
                 
-                let topicsJSon = topics.toJSON() as! [[String:Any]]
-
                 
-                try res.setBody(json: ["success":true,"data":[
-                                                        "totalCount":total_count,
-                                                        "totalPage":total_page,
-                                                        "currentPage":page_no ?? 0,
-                                                        "topics":topicsJSon,
-                                                        "is_self":is_self]])
+                let encoded = try? encoder.encode(topics)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            try res.setBody(json: ["success":true,"data":[
+                                "totalCount":total_count,
+                                "totalPage":total_page,
+                                "currentPage":page_no ?? 0,
+                                "topics":decoded,
+                                "is_self":is_self]])
+                        }
+                    }
+                }
                 res.completed()
             }catch{
                 Log.error(message: "\(error)")
@@ -470,23 +509,28 @@ class User {
                 }
                 let page_no:Int! = req.param(name: "page_no")?.int ?? 0
                 let page_size = 15
-                let userid = user!.id.id.id
+                let userid = user!.id
                 
                 let total_count = try TopicServer.get_total_hot_count_of_user(user_id: userid)
                 let total_page = Utils.total_page(total_count: total_count, page_size: page_size)
                 let topics = try TopicServer.get_all_hot_of_user(user_id: 2, page_no: page_no, page_size: page_size)
                 
                 
-                let topicArr = topics.toJSON() as! [[String:Any]]
                 
-                let data = ["totalCount":total_count,
-                            "totalPage":total_page,
-                            "currentPage":page_no,
-                            "topics":topicArr] as [String : Any]
                 
-            
+                let encoded = try? encoder.encode(topics)
+                if encoded != nil {
+                    if let json = encodeToString(data: encoded!){
+                        if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                            let data = ["totalCount":total_count,
+                                        "totalPage":total_page,
+                                        "currentPage":page_no,
+                                        "topics":decoded] as [String : Any]
+                            try res.setBody(json: ["success":true,"data":data])
+                        }
+                    }
+                }
                 
-                try res.setBody(json: ["success":true,"data":data])
                 res.completed()
                 
                 
@@ -521,7 +565,7 @@ class User {
                 return
             }
                 
-            let userId = user.id.id.id
+            let userId = user.id
 //            填充数据
             //粉丝
             let floows_count =  try FollowServer.get_follows_count(user_id: userId)
@@ -538,16 +582,20 @@ class User {
                     relation = try User.getRelation(id1: current_userId, id2: userId)
             }
                 
-            let userJson = user.toJSON()!
-            
-                                
-            res.render(template: "user/index"
-                        ,context: ["is_self":is_self
-                                  ,"relation":relation
-                                  ,"user":userJson
-                                  ,"follows_count":floows_count[0].count
-                                  ,"fans_count":fans_count[0].count
-                                  ,"topics_count":topics_count])
+            let encoded = try? encoder.encode(user)
+            if encoded != nil {
+                if let json = encodeToString(data: encoded!){
+                    if let decoded = try json.jsonDecode() as? [String:Any] {
+                        res.render(template: "user/index"
+                            ,context: ["is_self":is_self
+                                ,"relation":relation
+                                ,"user":decoded
+                                ,"follows_count":floows_count[0].count
+                                ,"fans_count":fans_count[0].count
+                                ,"topics_count":topics_count])
+                    }
+                }
+            }
             }catch{
                 res.render(template: "error", context: ["errMsg":"\(error)"])
             }

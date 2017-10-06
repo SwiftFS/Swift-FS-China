@@ -10,14 +10,9 @@ import Foundation
 import MySQL
 
 
-extension NotificationEntity:HandyJSON {
-    init() {
-        self.init(id: 0, user_id: 0, type: 0, from_id: 0, content: "", topic_id: 0, comment_id: 0, status: 0, create_time: Date.init(), from_username: "", avatar: "", username: "", topic_title: "", comment_content: "")
-    }
-}
 
 //用于展示个数
-struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType {
+struct NotificationEntity: QueryRowResultType, QueryParameterDictionaryType,Codable {
     
     let id: Int
     let user_id: Int

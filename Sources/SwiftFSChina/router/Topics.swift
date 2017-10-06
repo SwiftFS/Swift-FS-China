@@ -11,10 +11,11 @@ import PerfectHTTP
 import PerfectLib
 
 
+
 class Topics {
-    
     //所有文章
     static func topics(data: [String:Any]) throws -> RequestHandler {
+
         return {
             request, response in
             do{
@@ -36,12 +37,20 @@ class Topics {
                 response.completed()
                 return
             }
-            
-            let top = topics!.toJSON() as! [[String:Any]]
+                
             
                 
-            let dic:[String:Any] = ["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":top]
-            try response.setBody(json: ["success":true,"data":dic])
+            let encoded = try? encoder.encode(topics)
+                
+            if encoded != nil {
+                if let json = String(data: encoded!,encoding:.utf8){
+                    if let decoded = try json.jsonDecode() as? [[String:Any]] {
+                        let dic:[String:Any] = ["totalCount":total_count,"totalPage":total_page,"currentPage":page_no,"topics":decoded]
+                        try response.setBody(json: ["success":true,"data":dic])
+                    }
+                }
+            }
+            
             response.completed()
                 
             }catch{

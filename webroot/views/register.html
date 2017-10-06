@@ -109,13 +109,13 @@
                 dataType : 'json',
                 success : function(result) {
                     if(result.success){
-                        var count = 5;
+                        var count = 2;
                         setInterval(function(){
                             count = count - 1;
                             $("#tip div").removeClass("alert-danger").addClass("alert-info").text("注册成功，将跳转至登录页面! "+count+"秒.");
                             $("#tip").show();
                             if(count==0){
-                                 window.location.href="/login";
+                                 
                             }
                         }, 1000);
                     }else{

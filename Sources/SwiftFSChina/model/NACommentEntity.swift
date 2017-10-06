@@ -9,15 +9,8 @@
 import Foundation
 import MySQL
 
-
-extension NACommentEntity:HandyJSON{
-    init() {
-        self.init(id: 0, topic_id: 0, user_id: 0, create_time: Date(), content: "", user_name: "")
-    }
-}
-
 // --评论Model
-struct NACommentEntity: QueryRowResultType, QueryParameterDictionaryType {
+struct NACommentEntity: QueryRowResultType, QueryParameterDictionaryType,Codable {
     
     let id: Int
     let topic_id:Int
