@@ -1,6 +1,6 @@
 # SwiftFS China
 
-![截图](http://chuantu.biz/t6/62/1506231350x3072129954.png)
+![截图](http://otc482u6i.bkt.clouddn.com/8A52D0F1-F5A4-4EF7-A610-01F10F83220B.png)
 
 -------
 
